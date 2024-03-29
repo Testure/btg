@@ -50,7 +50,9 @@ public class BTG implements ModInitializer, GameStartEntrypoint, RecipeEntrypoin
 
 	@Override
 	public void initNamespaces() {
-		Registries.RECIPES.register(MOD_ID, new RecipeNamespace());
+		RecipeNamespace namespace = new RecipeNamespace();
+		namespace.register("workbench", Registries.RECIPES.WORKBENCH);
+		Registries.RECIPES.register(MOD_ID, namespace);
 	}
 
 	@Override
