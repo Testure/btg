@@ -1,0 +1,7 @@
+tile.btg.rubberSapling.name=Rubber Sapling
+tile.btg.rubberLeaves.name=Rubber Leaves
+tile.btg.rubberLog.name=Rubber Log
+
+tile.btg.rubberSapling.desc=Plant to grow a rubber tree
+tile.btg.rubberLeaves.desc=Leaves from a rubber tree
+tile.btg.rubberLog.desc=A log from a rubber tree

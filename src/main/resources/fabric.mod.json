@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "btg",
+  "version": "${version}",
+
+  "name": "Better Than Greg",
+  "description": "Greg funny",
+  "authors": [
+    "Turing6"
+  ],
+  "contact": {
+    "sources": ""
+  },
+
+	"icon": "icon.png",
+  "license": "LGPL-3.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+			"turing.btg.BTG"
+    ],
+		"beforeGameStart": [
+			"turing.btg.BTG"
+		],
+		"afterGameStart": [
+			"turing.btg.BTG"
+		],
+		"recipesReady": [
+			"turing.btg.BTG"
+		],
+		"terrain-api": [
+			"turing.btg.world.WorldGen"
+		]
+	},
+  "mixins": [
+      "btg.mixins.json"
+  ],
+
+  "depends": {
+		"minecraft": "~7.1-beta.2",
+    "fabricloader": ">=0.15.5",
+		"halplibe": ">=3.4.16"
+  },
+  "suggests": {
+  }
+}
