@@ -1,7 +1,15 @@
 tile.btg.rubberSapling.name=Rubber Sapling
 tile.btg.rubberLeaves.name=Rubber Leaves
 tile.btg.rubberLog.name=Rubber Log
+tile.btg.oreStone.name=Stone %s Ore
+tile.btg.oreBasalt.name=Basalt %s Ore
+tile.btg.oreLimestone.name=Limestone %s Ore
+tile.btg.oreGranite.name=Granite %s Ore
 
 tile.btg.rubberSapling.desc=Plant to grow a rubber tree
 tile.btg.rubberLeaves.desc=Leaves from a rubber tree
 tile.btg.rubberLog.desc=A log from a rubber tree
+tile.btg.oreStone.desc=Chunks of %s embedded in stone
+tile.btg.oreBasalt.desc=Chunks of %s embedded in basalt
+tile.btg.oreLimestone.desc=Chunks of %s embedded in limestone
+tile.btg.oreGranite.desc=Chunks of %s embedded in granite

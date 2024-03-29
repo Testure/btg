@@ -13,11 +13,6 @@ public class BlockOre extends Block {
 	}
 
 	@Override
-	public String getLanguageKey(int meta) {
-		return this.key + "." + meta;
-	}
-
-	@Override
 	public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
 		return new ItemStack[]{new ItemStack(this, 1, meta)};
 	}

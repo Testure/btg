@@ -8,7 +8,8 @@
     "client": [
       "BlockModelRenderBlocksAccessor",
       "RenderBlocksMixin",
-      "EntityDiggingFXMixin"
+      "EntityDiggingFXMixin",
+      "GuiTooltipMixin"
     ],
     "injectors": {
         "defaultRequire": 1
