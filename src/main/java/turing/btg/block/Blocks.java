@@ -61,6 +61,17 @@ public class Blocks {
 			.setItemBlock(ItemBlockOre::new)
 			.build(new BlockOre("oreStone", NextID++));
 
+		oreBasalt = new BlockBuilder(BTG.MOD_ID)
+			.setHardness(3.0F)
+			.setResistance(5.0F)
+			.addTags(BlockTags.MINEABLE_BY_PICKAXE)
+			.setBlockColor(new BlockColorMaterial())
+			.setBlockModel(new BlockModelLayered(Block.oreIronBasalt, Block.basalt.getBlockTextureFromSideAndMetadata(Side.BOTTOM, 0)))
+			.setBlockSound(BlockSounds.STONE)
+			.setTextures("ore.png")
+			.setItemBlock(ItemBlockOre::new)
+			.build(new BlockOre("oreBasalt", NextID++));
+
 		oreLimestone = new BlockBuilder(BTG.MOD_ID)
 			.setHardness(3.0F)
 			.setResistance(5.0F)
@@ -82,16 +93,5 @@ public class Blocks {
 			.setTextures("ore.png")
 			.setItemBlock(ItemBlockOre::new)
 			.build(new BlockOre("oreGranite", NextID++));
-
-		oreBasalt = new BlockBuilder(BTG.MOD_ID)
-			.setHardness(3.0F)
-			.setResistance(5.0F)
-			.addTags(BlockTags.MINEABLE_BY_PICKAXE)
-			.setBlockColor(new BlockColorMaterial())
-			.setBlockModel(new BlockModelLayered(Block.oreIronBasalt, Block.basalt.getBlockTextureFromSideAndMetadata(Side.BOTTOM, 0)))
-			.setBlockSound(BlockSounds.STONE)
-			.setTextures("ore.png")
-			.setItemBlock(ItemBlockOre::new)
-			.build(new BlockOre("oreBasalt", NextID++));
 	}
 }
