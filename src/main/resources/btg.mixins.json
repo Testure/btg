@@ -4,6 +4,7 @@
     "package": "turing.btg.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
+      "ContainerPlayerCreativeMixin"
     ],
     "client": [
       "BlockModelRenderBlocksAccessor",
