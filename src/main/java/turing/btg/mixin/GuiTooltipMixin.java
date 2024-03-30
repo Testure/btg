@@ -2,6 +2,7 @@ package turing.btg.mixin;
 
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +21,7 @@ public class GuiTooltipMixin {
 			ICustomDescription item = (ICustomDescription) stack.getItem();
 			String ogDesc = formatDescription(trans.translateKey(itemStack.getItemName() + ".desc"), 16);
 			text.delete(text.indexOf(ogDesc), text.length());
-			text.append(item.getTranslatedDescription(stack)).append("\n");
+			text.append(TextFormatting.formatted(item.getTranslatedDescription(stack), TextFormatting.LIGHT_GRAY)).append("\n");
 			String[] tooltips = item.getTooltips(stack, shiftPressed, ctrlPressed);
 			for (String tooltip : tooltips) {
 				text.append(tooltip);
