@@ -4,13 +4,12 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DyeColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turing.btg.block.Blocks;
-import turniplabs.halplibe.helper.ItemHelper;
+import turing.btg.item.Items;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.util.ConfigHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
@@ -29,18 +28,14 @@ public class BTG implements ModInitializer, GameStartEntrypoint, RecipeEntrypoin
     public void onInitialize() {
 		LOGGER.info(MOD_ID + " has initialized!");
 		defaultConfig.put("Starting_Block_ID", "10000");
+		defaultConfig.put("Starting_Item_ID", "20000");
 		config = new ConfigHandler(MOD_ID, defaultConfig);
     }
 
 	@Override
 	public void beforeGameStart() {
-		ItemHelper.createItem(MOD_ID, new Item("testItem", ItemHelper.highestVanilla + 1) {
-			@Override
-			public int getColorFromDamage(int i) {
-				return 0xFF0000;
-			}
-		}.setIconCoord(7, 1));
 		Blocks.init();
+		Items.init();
 	}
 
 	@Override

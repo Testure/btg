@@ -32,7 +32,7 @@ public class Blocks {
 			.setTopBottomTexture("log_rubber_top.png")
 			.setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
 			.setHardness(2.0F)
-			.build(new BlockLog("rubberLog", NextID++));
+			.build(new BlockLogRubber("rubberLog", NextID++));
 
 		rubberLeaves = new BlockBuilder(BTG.MOD_ID)
 			.setHardness(0.2F)

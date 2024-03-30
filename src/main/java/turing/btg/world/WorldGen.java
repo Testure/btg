@@ -1,17 +1,13 @@
 package turing.btg.world;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
-import net.minecraft.core.world.generate.feature.WorldFeature;
-import net.minecraft.core.world.generate.feature.tree.WorldFeatureTree;
 import turing.btg.BTG;
-import turing.btg.block.Blocks;
 import useless.terrainapi.api.TerrainAPI;
 import useless.terrainapi.initialization.worldtypes.OverworldInitialization;
 
 public class WorldGen implements TerrainAPI {
-	public static final WorldFeature rubberTreeFeature = new WorldFeatureTree(Blocks.rubberLeaves.id, Blocks.rubberLog.id, 6);
+	public static final WorldFeatureRubberTree rubberTreeFeature = new WorldFeatureRubberTree();
 	public static final Biome[] rubberTreeBiomes = new Biome[]{
 		Biomes.OVERWORLD_PLAINS,
 		Biomes.OVERWORLD_TAIGA,
