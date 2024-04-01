@@ -87,6 +87,7 @@ dependencies {
 	modImplementation project.files("libs/terrainapi-1.4.4-7.1.jar")
 	//modImplementation project.files("libs/catalyst-core-1.1.5.jar")
 	//modImplementation project.files("libs/catalyst-fluids-1.0.4.jar", "libs/catalyst-multiblocks-1.0.4.jar")
+	modImplementation project.files("libs/modnametooltip-1.0.1.jar")
 
 	modImplementation "ModMenu:ModMenu:2.0.4"
 
