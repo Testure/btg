@@ -21,6 +21,9 @@ public class WorldFeatureOreVein extends WorldFeature {
 	public boolean generate(World world, Random random, int x, int y, int z) {
 		OreVein vein = selectVein(world, random, x, y, z);
 		if (vein != null) {
+			WorldGen.onGenerateOreVein(x, y, z);
+			/*int surfaceY = world.getHeightValue(x, z);
+			world.setBlock(x, surfaceY + 1, z, Block.blockDiamond.id);*/
 			int[] oreIds = vein.getOreIds();
 			int radiusX = (int)(vein.getRadiusX() * ((float)(random.nextInt((100 - 82) + 1) + 82) / 100.0F));
 			int radiusZ = vein.getRadiusZ() == vein.getRadiusX() ? radiusX : (int)(vein.getRadiusZ() * ((float)(random.nextInt((100 - 82) + 1) + 82) / 100.0F));
@@ -57,23 +60,34 @@ public class WorldFeatureOreVein extends WorldFeature {
 	}
 
 	private OreVein selectVein(World world, Random rand, int x, int y, int z) {
-		Biome biome = world.getBlockBiome(x, y, z);
-		List<OreVein> validVeins = OreVein.VEINS.stream().filter(vein -> {
-			if (y <= vein.getMaxY() && y >= vein.getMinY()) {
-				return isBiomeValid(vein, biome);
-			}
-			return false;
-		}).collect(Collectors.toList());
-		List<Integer> ids = new ArrayList<>();
+		if ((x / 16) % 3 == 0 && (z / 16) % 3 == 0) {
+			List<Integer> previousVeins = WorldGen.GENERATED_ORE_VEINS.get(x / 16 + "," + z / 16);
+			Biome biome = world.getBlockBiome(x, y, z);
+			List<OreVein> validVeins = OreVein.VEINS.stream().filter(vein -> {
+				if (previousVeins != null) {
+					for (int prevY : previousVeins) {
+						if (Math.max(prevY - 4, y - 4) - Math.min(prevY - 4, y - 4) < 8) {
+							return false;
+						}
+					}
+				}
+				if (y <= vein.getMaxY() && y >= vein.getMinY()) {
+					return isBiomeValid(vein, biome);
+				}
+				return false;
+			}).collect(Collectors.toList());
+			List<Integer> ids = new ArrayList<>();
 
-		for (int o = 0; o < validVeins.size(); ++o) {
-			OreVein vein = validVeins.get(o);
-			for (int i = ids.size(); i < vein.getChance(); ++i) {
-				ids.add(i, o);
+			for (int o = 0; o < validVeins.size(); ++o) {
+				OreVein vein = validVeins.get(o);
+				for (int i = ids.size(); i < vein.getChance(); ++i) {
+					ids.add(i, o);
+				}
 			}
+
+			return ids.isEmpty() ? null : validVeins.get(ids.get(rand.nextInt(ids.size())));
 		}
-
-		return ids.isEmpty() ? null : validVeins.get(ids.get(rand.nextInt(ids.size())));
+		return null;
 	}
 
 	private boolean isBiomeValid(OreVein vein, Biome biome) {
