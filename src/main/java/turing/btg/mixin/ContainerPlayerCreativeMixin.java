@@ -16,23 +16,18 @@ public abstract class ContainerPlayerCreativeMixin {
 	public static int creativeItemsCount;
 
 	@Shadow
-	protected abstract void updatePage();
-
-	@Shadow
 	protected List<ItemStack> searchedItems;
 
 	@Shadow
 	public static List<ItemStack> creativeItems;
 
-	@Inject(method = "searchPage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/lang/I18n;getInstance()Lnet/minecraft/core/lang/I18n;", shift = At.Shift.BEFORE), cancellable = true)
+	@Inject(method = "searchPage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/ContainerPlayerCreative;updatePage()V", shift = At.Shift.BEFORE))
 	public void injectProperSearch(String search, CallbackInfo ci) {
 		for (int i = 0; i < creativeItemsCount; ++i) {
 			ItemStack stack = creativeItems.get(i);
 			if (stack.getItem().getTranslatedName(stack).toLowerCase().contains(search.toLowerCase())) {
-				this.searchedItems.add(stack);
+				if (!this.searchedItems.contains(stack)) this.searchedItems.add(stack);
 			}
 		}
-		this.updatePage();
-		ci.cancel();
 	}
 }
