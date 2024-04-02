@@ -7,6 +7,7 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.sound.BlockSounds;
 import net.minecraft.core.util.helper.Side;
 import turing.btg.BTG;
+import turing.btg.BTGConfig;
 import turing.btg.client.BlockColorMaterial;
 import turing.btg.client.BlockModelLayered;
 import turing.btg.item.ItemBlockOre;
@@ -24,7 +25,7 @@ public class Blocks {
 	public static Block oreBasalt;
 
 	public static void init() {
-		NextID = BTG.config.getInt("Starting_Block_ID");
+		NextID = BTGConfig.config.getInt("StartingBlockID");
 
 		rubberLog = new BlockBuilder(BTG.MOD_ID)
 			.setBlockSound(BlockSounds.WOOD)

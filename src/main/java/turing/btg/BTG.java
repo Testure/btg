@@ -15,21 +15,14 @@ import turniplabs.halplibe.util.ConfigHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
-import java.util.Properties;
-
-
 public class BTG implements ModInitializer, GameStartEntrypoint, RecipeEntrypoint {
     public static final String MOD_ID = "btg";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final Properties defaultConfig = new Properties();
 	public static ConfigHandler config;
 
 	@Override
     public void onInitialize() {
 		LOGGER.info(MOD_ID + " has initialized!");
-		defaultConfig.put("Starting_Block_ID", "10000");
-		defaultConfig.put("Starting_Item_ID", "20000");
-		config = new ConfigHandler(MOD_ID, defaultConfig);
     }
 
 	@Override
