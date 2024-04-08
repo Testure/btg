@@ -15,5 +15,6 @@ tile.btg.oreLimestone.desc=Chunks of %s embedded in limestone
 tile.btg.oreGranite.desc=Chunks of %s embedded in granite
 
 item.btg.stickyResin.name=Sticky Resin
+item.btg.creativeSword.name=Greg's Flaming Laser Sword
 
 item.btg.stickyResin.desc=A sticky substance that comes from rubber trees.
