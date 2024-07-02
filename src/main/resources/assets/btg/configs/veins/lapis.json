@@ -1,0 +1,18 @@
+{
+  "name": "Lapis",
+  "weight": 50,
+  "density": 0.28,
+  "minY": 20,
+  "maxY": 70,
+  "size": 20,
+  "surface_generator": {
+    "type": "ROCK",
+    "value": "lapis"
+  },
+  "material": {
+    "primary": "lazurite",
+    "secondary": "sodalite",
+    "between": "lapis",
+    "sporadic": "calcite"
+  }
+}

@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class BlockLeavesRubber extends BlockLeavesBase {
 	public BlockLeavesRubber(String key, int id) {
-		super(key, id, Material.leaves, false);
+		super(key, id, Material.leaves);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class BlockLeavesRubber extends BlockLeavesBase {
 			WindManager wind = world.getWorldType().getWindManager();
 			float intensity = wind.getWindIntensity(world, x, y, z);
 			if (rand.nextInt((int)(40F + 200F * (1F - intensity))) == 0) {
-				world.spawnParticle("fallingleaf", x, y - 0.1F, z, 0, 0, 0);
+				world.spawnParticle("fallingleaf", x, y - 0.1F, z, 0, 0, 0, 0);
 			}
 		}
 	}

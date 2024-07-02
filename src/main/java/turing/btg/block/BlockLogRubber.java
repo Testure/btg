@@ -14,11 +14,6 @@ public class BlockLogRubber extends BlockLog {
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(Side side, int data) {
-		return data >= 3 ? this.atlasIndices[side.getId()] : super.getBlockTextureFromSideAndMetadata(side, data);
-	}
-
-	@Override
 	public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
 		ItemStack[] items = new ItemStack[2];
 		items[0] = new ItemStack(this, 1);

@@ -5,6 +5,7 @@ import net.minecraft.client.entity.fx.EntityFX;
 import net.minecraft.client.render.block.model.BlockModel;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,12 +23,12 @@ public class EntityDiggingFXMixin extends EntityFX {
 		super(world, x, y, z, motionX, motionY, motionZ);
 	}
 
-	@Inject(method = "func_4041_a", at = @At("TAIL"))
-	public void beforeFunc_4041_a(int x, int y, int z, CallbackInfoReturnable<EntityDiggingFX> ci) {
-		BlockModel model = BlockModelDispatcher.getInstance().getDispatch(this.block);
+	@Inject(method = "setParticleColor", at = @At("TAIL"))
+	public void beforeSetParticleColor(int x, int y, int z, CallbackInfoReturnable<EntityDiggingFX> ci) {
+		BlockModel<?> model = BlockModelDispatcher.getInstance().getDispatch(this.block);
 		if (model instanceof BlockModelLayered) {
-			BlockModelLayered layered = (BlockModelLayered) model;
-			this.particleTextureIndex = layered.getParticleTextureIndex();
+			BlockModelLayered<?> layered = (BlockModelLayered<?>) model;
+			this.particleTexture = layered.getParticleTexture(Side.BOTTOM, 0);
 			this.particleRed = this.particleGreen = this.particleBlue = 0.6F;
 		}
 	}

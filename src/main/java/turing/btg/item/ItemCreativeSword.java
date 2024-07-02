@@ -1,6 +1,5 @@
 package turing.btg.item;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -22,11 +21,6 @@ public class ItemCreativeSword extends ItemToolSword {
 
 	@Override
 	public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
-		return true;
-	}
-
-	@Override
-	public boolean canHarvestBlock(Block block) {
 		return true;
 	}
 }

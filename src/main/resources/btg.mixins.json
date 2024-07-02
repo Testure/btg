@@ -3,14 +3,18 @@
     "minVersion": "0.8",
     "package": "turing.btg.mixin",
     "compatibilityLevel": "JAVA_8",
+    "plugin": "turing.btg.mixin.ModMixinPlugin",
     "mixins": [
-      "ContainerPlayerCreativeMixin"
+      "ContainerPlayerCreativeMixin",
+      "RecipeRegistryMixin",
+      "RecipeSymbolMixin"
     ],
     "client": [
-      "BlockModelRenderBlocksAccessor",
       "RenderBlocksMixin",
       "EntityDiggingFXMixin",
-      "GuiTooltipMixin"
+      "GuiTooltipMixin",
+      "RenderEngineMixin",
+      "btwaila.BaseInfoComponentMixin"
     ],
     "injectors": {
         "defaultRequire": 1

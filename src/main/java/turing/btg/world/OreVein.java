@@ -5,6 +5,7 @@ import java.util.*;
 public class OreVein {
 	public static final List<OreVein> VEINS = new ArrayList<>();
 
+	private final String name;
 	private final int[] oreIds;
 	private final int minY;
 	private final int maxY;
@@ -14,8 +15,9 @@ public class OreVein {
 	private final float density;
 	private final Map<String, Object> properties;
 
-	public OreVein(int[] oreIds, int minY, int maxY, int chance, float density, int radiusX, int radiusZ, Map<String, Object> properties) {
+	public OreVein(int[] oreIds, String name, int minY, int maxY, int chance, float density, int radiusX, int radiusZ, Map<String, Object> properties) {
 		this.oreIds = oreIds;
+		this.name = name;
 		this.minY = minY;
 		this.maxY = maxY;
 		this.chance = chance;
@@ -26,16 +28,20 @@ public class OreVein {
 		VEINS.add(this);
 	}
 
-	public OreVein(int[] oreIds, int minY, int maxY, int chance, float density, int radiusX, int radiusZ) {
-		this(oreIds, minY, maxY, chance, density, radiusX, radiusZ, null);
+	public OreVein(int[] oreIds, String name, int minY, int maxY, int chance, float density, int radiusX, int radiusZ) {
+		this(oreIds, name, minY, maxY, chance, density, radiusX, radiusZ, null);
 	}
 
-	public OreVein(int[] oreIds, int minY, int maxY, int chance, float density, int radius, Map<String, Object> properties) {
-		this(oreIds, minY, maxY, chance, density, radius, radius, properties);
+	public OreVein(int[] oreIds, String name, int minY, int maxY, int chance, float density, int radius, Map<String, Object> properties) {
+		this(oreIds, name, minY, maxY, chance, density, radius, radius, properties);
 	}
 
-	public OreVein(int[] oreIds, int minY, int maxY, int chance, float density, int radius) {
-		this(oreIds, minY, maxY, chance, density, radius, radius, null);
+	public OreVein(int[] oreIds, String name, int minY, int maxY, int chance, float density, int radius) {
+		this(oreIds, name, minY, maxY, chance, density, radius, radius, null);
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public int[] getOreIds() {

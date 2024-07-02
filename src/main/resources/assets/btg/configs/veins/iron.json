@@ -1,0 +1,18 @@
+{
+  "name": "Magnetite",
+  "weight": 120,
+  "density": 0.25,
+  "minY": 45,
+  "maxY": 70,
+  "size": 24,
+  "surface_generator": {
+    "type": "ROCK",
+    "value": "iron"
+  },
+  "material": {
+    "primary": "magnetite",
+    "secondary": "vanadium_magnetite",
+    "between": "iron",
+    "sporadic": "gold"
+  }
+}

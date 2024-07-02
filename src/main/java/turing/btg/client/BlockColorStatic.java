@@ -2,9 +2,10 @@ package turing.btg.client;
 
 import net.minecraft.client.render.block.color.BlockColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.WorldSource;
 
 public class BlockColorStatic extends BlockColor {
-	protected final int color;
+	private final int color;
 
 	public BlockColorStatic(int color) {
 		this.color = color;
@@ -12,11 +13,11 @@ public class BlockColorStatic extends BlockColor {
 
 	@Override
 	public int getFallbackColor(int i) {
-		return this.color;
+		return color;
 	}
 
 	@Override
-	public int getWorldColor(World world, int i, int j, int k) {
-		return this.color;
+	public int getWorldColor(WorldSource world, int i, int j, int k) {
+		return color;
 	}
 }

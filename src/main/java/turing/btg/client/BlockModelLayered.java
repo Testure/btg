@@ -1,38 +1,59 @@
 package turing.btg.client;
 
-import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
+import net.minecraft.client.render.block.model.BlockModelDispatcher;
+import net.minecraft.client.render.block.model.BlockModelStandard;
+import net.minecraft.client.render.stitcher.IconCoordinate;
+import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.Block;
-import turing.btg.mixin.BlockModelRenderBlocksAccessor;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.WorldSource;
+import turing.btg.BTG;
+import turing.btg.block.BlockMaterial;
+import turing.btg.material.MaterialIconSet;
 
-public class BlockModelLayered extends BlockModelRenderBlocks {
+public class BlockModelLayered<T extends BlockMaterial> extends BlockModelStandard<T> {
 	private final Block base;
 	private final int baseMeta;
-	private final int particleTextureIndex;
+	private final IconCoordinate particleTextureIndex;
 
-	public BlockModelLayered(Block base, int particleTextureIndex, int baseMeta) {
-		super(0);
+	public BlockModelLayered(T block, Block base, IconCoordinate particleTextureIndex, int baseMeta) {
+		super(block);
 		this.base = base;
 		this.baseMeta = baseMeta;
 		this.particleTextureIndex = particleTextureIndex;
 	}
 
-	public BlockModelLayered(Block base, int particleTextureIndex) {
-		this(base, particleTextureIndex, 0);
+	public BlockModelLayered(T block, Block base, IconCoordinate particleTextureIndex) {
+		this(block, base, particleTextureIndex, 0);
 	}
 
 	@Override
-	public boolean render(Block block, int x, int y, int z) {
-		return BlockModelRenderBlocksAccessor.getRenderBlocks().renderStandardBlock(this.base, x, y, z) && BlockModelRenderBlocksAccessor.getRenderBlocks().renderStandardBlock(block, x, y, z);
+	public boolean render(Tessellator tessellator, int x, int y, int z) {
+		return renderBlocks.renderStandardBlock(tessellator, BlockModelDispatcher.getInstance().getDispatch(this.base), this.base, x, y, z) && renderStandardBlock(tessellator, this.block, x, y, z);
 	}
 
 	@Override
-	public boolean renderNoCulling(Block block, int x, int y, int z) {
-		return BlockModelRenderBlocksAccessor.getRenderBlocks().renderBlockAllFaces(this.base, 0, x, y, z) && BlockModelRenderBlocksAccessor.getRenderBlocks().renderBlockByRenderType(block, 0, x, y, z);
+	public boolean renderNoCulling(Tessellator tessellator, int x, int y, int z) {
+		renderBlocks.renderAllFaces = true;
+		boolean val = renderStandardBlock(tessellator, this.base, x, y, z) && renderStandardBlock(tessellator, this.block, x, y, z);
+		renderBlocks.renderAllFaces = false;
+		return val;
 	}
 
 	@Override
-	public boolean renderWithOverrideTexture(Block block, int x, int y, int z, int textureIndex) {
-		return BlockModelRenderBlocksAccessor.getRenderBlocks().renderStandardBlock(this.base, x, y, z) && BlockModelRenderBlocksAccessor.getRenderBlocks().renderBlockUsingTexture(block, 0, x, y, z, textureIndex);
+	public boolean renderWithOverrideTexture(Tessellator tessellator, int x, int y, int z, IconCoordinate textureIndex) {
+		boolean val = renderStandardBlock(tessellator, this.base, x, y, z);
+		renderBlocks.overrideBlockTexture = textureIndex;
+		val &= renderStandardBlock(tessellator, this.block, x, y, z);
+		renderBlocks.overrideBlockTexture = null;
+		return val;
+	}
+
+	@Override
+	public void renderBlockOnInventory(Tessellator tessellator, int metadata, float brightness, float alpha, Integer lightmapCorrdinate) {
+		BlockModelDispatcher.getInstance().getDispatch(this.base).renderBlockOnInventory(tessellator, this.baseMeta, brightness, alpha, lightmapCorrdinate);
+		super.renderBlockOnInventory(tessellator, metadata, brightness, alpha, lightmapCorrdinate);
 	}
 
 	@Override
@@ -45,15 +66,37 @@ public class BlockModelLayered extends BlockModelRenderBlocks {
 		return 0.25F;
 	}
 
+	@Override
+	public IconCoordinate getBlockTexture(WorldSource worldSource, int i, int j, int k, Side side) {
+		return getBlockTextureFromSideAndMetadata(side, worldSource.getBlockMetadata(i, j, k));
+	}
+
+	@Override
+	public IconCoordinate getBlockOverbrightTexture(WorldSource worldSource, int x, int y, int z, int meta) {
+		return null;
+	}
+
+	@Override
+	public IconCoordinate getBlockOverbrightTextureFromSideAndMeta(Side side, int meta) {
+		return null;
+	}
+
+	@Override
+	public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
+		MaterialIconSet iconSet = this.block.getIconSet(meta);
+		return iconSet != null ? iconSet.getOreTextureIndex() : null;
+	}
+
+	@Override
+	public IconCoordinate getParticleTexture(Side side, int meta) {
+		return particleTextureIndex;
+	}
+
 	public Block getBase() {
 		return base;
 	}
 
 	public int getBaseMeta() {
 		return baseMeta;
-	}
-
-	public int getParticleTextureIndex() {
-		return particleTextureIndex;
 	}
 }

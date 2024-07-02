@@ -2,28 +2,33 @@ package turing.btg.client;
 
 import net.minecraft.client.render.block.color.BlockColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.WorldSource;
+import turing.btg.api.IMaterialMetaHandler;
+import turing.btg.material.Material;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlockColorMaterial extends BlockColor {
-	public static final BlockColorMaterial INSTANCE = new BlockColorMaterial();
-	private static final Map<Integer, Integer> c = new HashMap<>();
+public class BlockColorMaterial extends BlockColor implements IMaterialMetaHandler {
+	private final int handlerID;
 
-	static {
-		c.put(0, 0xFF0000);
-		c.put(1, 0x00FF00);
-		c.put(2, 0x0000FF);
-		c.put(3, 0xFFFF00);
+	public BlockColorMaterial(int handlerID) {
+		this.handlerID = handlerID;
+	}
+
+	@Override
+	public int getHandlerID() {
+		return handlerID;
 	}
 
 	@Override
 	public int getFallbackColor(int meta) {
-		return c.get(meta);
+		int id = getMaterialIDForMeta(meta);
+		return Material.MATERIALS.get(id) != null ? Material.MATERIALS.get(id).getColor() : -1;
 	}
 
 	@Override
-	public int getWorldColor(World world, int x, int y, int z) {
+	public int getWorldColor(WorldSource world, int x, int y, int z) {
 		return this.getFallbackColor(world.getBlockMetadata(x, y, z));
 	}
 }

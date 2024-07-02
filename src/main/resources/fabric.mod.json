@@ -26,6 +26,9 @@
 		"afterGameStart": [
 			"turing.btg.BTG"
 		],
+		"beforeClientStart": [
+			"turing.btg.BTG"
+		],
 		"recipesReady": [
 			"turing.btg.BTG"
 		],
@@ -38,9 +41,11 @@
   ],
 
   "depends": {
-		"minecraft": "~7.1-beta.2",
+		"minecraft": "~7.2-beta.1",
     "fabricloader": ">=0.15.5",
-		"halplibe": ">=3.4.16"
+		"halplibe": ">=3.4.16",
+		"enchantmentlib": ">=1.0.2",
+		"catalyst-fluids": ">=1.0.6"
   },
   "suggests": {
   }

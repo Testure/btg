@@ -1,10 +1,14 @@
 package turing.btg.world;
 
-import net.minecraft.core.block.Block;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import turing.btg.api.IOreStoneType;
+import turing.btg.block.BlockOreMaterial;
 import turing.btg.block.Blocks;
+import turing.btg.material.Materials;
+import turing.btg.material.OreStoneType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +26,34 @@ public class WorldFeatureOreVein extends WorldFeature {
 		OreVein vein = selectVein(world, random, x, y, z);
 		if (vein != null) {
 			WorldGen.onGenerateOreVein(x, y, z);
-			/*int surfaceY = world.getHeightValue(x, z);
-			world.setBlock(x, surfaceY + 1, z, Block.blockDiamond.id);*/
+			Object surface = vein.getProperties().get("surface_material");
+			if (surface instanceof Integer && WorldGen.GENERATED_SURFACE_ROCKS.get(x / 16 + "," + z / 16) == null) {
+				int surfaceID = (int) surface;
+				int handler = MathHelper.floor_float(surfaceID / Materials.fMETA_LIMIT);
+				Object surfaceType = vein.getProperties().get("surface_generator");
+				Object surfacePattern = vein.getProperties().get("surface_generator_pattern");
+				String generator = "ROCK";
+				int pattern = 0;
+				if (surfaceType instanceof String) {
+					generator = (String) surfaceType;
+				}
+				if (surfacePattern instanceof Integer) {
+					pattern = (int) surfacePattern;
+				}
+				switch (generator) {
+					case "PATTERN_ROCKS":
+						new WorldFeatureSurfaceRockPattern(handler, pattern).generate(world, random, x, world.getHeightValue(x, z), z, surfaceID);
+						break;
+					case "PATTERN_BLOCKS":
+						new WorldFeatureSurfacePattern(surfaceID, 0, pattern).generate(world, random, x, world.getHeightValue(x, z), z);
+						break;
+					case "ROCK":
+					default:
+						new WorldFeatureSurfaceRock(handler).generate(world, random, x, y, z, surfaceID);
+						break;
+				}
+				WorldGen.GENERATED_SURFACE_ROCKS.put(x / 16 + "," + z / 16, surfaceID);
+			}
 			int[] oreIds = vein.getOreIds();
 			int radiusX = (int)(vein.getRadiusX() * ((float)(random.nextInt((100 - 82) + 1) + 82) / 100.0F));
 			int radiusZ = vein.getRadiusZ() == vein.getRadiusX() ? radiusX : (int)(vein.getRadiusZ() * ((float)(random.nextInt((100 - 82) + 1) + 82) / 100.0F));
@@ -32,23 +62,27 @@ public class WorldFeatureOreVein extends WorldFeature {
 					for (int z1 = z - (radiusZ / 2); z1 < (z + (radiusZ / 2)); ++z1) {
 						int currentBlockId = world.getBlockId(x1, (y - 4) - layer, z1);
 						if (canBlockBeReplaced(currentBlockId)) {
-							int blockId = getBlockIdFromReplacement(currentBlockId);
-							if (blockId != currentBlockId) {
+							List<BlockOreMaterial> list = getBlockListFromReplacement(currentBlockId);
+							if (list != null) {
 								if (vein.getDensity() > random.nextFloat()) {
 									int oreBlock = random.nextInt(3);
-									int oreBlockId = currentBlockId;
+									int oreId = currentBlockId;
 									switch (oreBlock) {
 										case 0:
-											oreBlockId = layer < 4 ? oreIds[0] : oreIds[1];
+											oreId = layer < 4 ? oreIds[0] : oreIds[1];
 											break;
 										case 1:
-											oreBlockId = layer > 2 && layer < 6 ? oreIds[2] : (layer < 4 ? oreIds[0] : oreIds[1]);
+											oreId = layer > 2 && layer < 6 ? oreIds[2] : (layer < 4 ? oreIds[0] : oreIds[1]);
 											break;
 										case 2:
-											oreBlockId = oreIds[3];
+											oreId = oreIds[3];
 											break;
 									}
-									world.setBlockAndMetadata(x1, (y - 4) - layer, z1, blockId, oreBlockId);
+									int handlerID = MathHelper.floor_float(oreId / Materials.fMETA_LIMIT);
+									BlockOreMaterial block = list.get(handlerID);
+									if (block != null) {
+										world.setBlockAndMetadata(x1, (y - 4) - layer, z1, block.id, oreId - (Materials.iMETA_LIMIT * handlerID));
+									}
 								}
 							}
 						}
@@ -66,7 +100,7 @@ public class WorldFeatureOreVein extends WorldFeature {
 			List<OreVein> validVeins = OreVein.VEINS.stream().filter(vein -> {
 				if (previousVeins != null) {
 					for (int prevY : previousVeins) {
-						if (Math.max(prevY - 4, y - 4) - Math.min(prevY - 4, y - 4) < 8) {
+						if (Math.max(prevY - 4, y - 4) - Math.min(prevY - 4, y - 4) < 64) {
 							return false;
 						}
 					}
@@ -100,15 +134,17 @@ public class WorldFeatureOreVein extends WorldFeature {
 		return true;
 	}
 
-	private int getBlockIdFromReplacement(int replacedId) {
-		if (replacedId == Block.stone.id) return Blocks.oreStone.id;
-		else if (replacedId == Block.basalt.id) return Blocks.oreBasalt.id;
-		else if (replacedId == Block.granite.id) return Blocks.oreGranite.id;
-		else if (replacedId == Block.limestone.id) return Blocks.oreLimestone.id;
-		return replacedId;
+	private List<BlockOreMaterial> getBlockListFromReplacement(int replacedId) {
+		for (IOreStoneType stoneType : OreStoneType.TYPES) {
+			if (stoneType.getBaseBlock().id == replacedId) return Blocks.ores.get(stoneType);
+		}
+		return null;
 	}
 
 	private boolean canBlockBeReplaced(int blockId) {
-		return blockId == Block.stone.id || blockId == Block.granite.id || blockId == Block.basalt.id || blockId == Block.limestone.id;
+		for (IOreStoneType stoneType : OreStoneType.TYPES) {
+			if (stoneType.getBaseBlock().id == blockId) return true;
+		}
+		return false;
 	}
 }
