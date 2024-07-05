@@ -9,13 +9,13 @@ public class MaterialItemType {
 	public static final MaterialItemType INGOT = new MaterialItemType("ingot");
 	public static final MaterialItemType GEM = new MaterialItemType("gem");
 	public static final MaterialItemType DUST = new MaterialItemType("dust");
-	public static final MaterialItemType DUST_SMALL = new MaterialItemType("smallDust", "dusts_small_");
-	public static final MaterialItemType DUST_TINY = new MaterialItemType("tinyDust", "dusts_tiny_");
-	public static final MaterialItemType CRUSHED_ORE = new MaterialItemType("crushedOre", "ores_crushed_");
+	public static final MaterialItemType DUST_SMALL = new MaterialItemType("smallDust", "small_dusts");
+	public static final MaterialItemType DUST_TINY = new MaterialItemType("tinyDust", "tiny_dusts");
+	public static final MaterialItemType CRUSHED_ORE = new MaterialItemType("crushedOre", "crushed_ores");
 	public static final MaterialItemType PLATE = new MaterialItemType("plate");
 	public static final MaterialItemType STICK = new MaterialItemType("stick");
 	public static final MaterialItemType GEAR = new MaterialItemType("gear");
-	public static final MaterialItemType GEAR_SMALL = new MaterialItemType("gearSmall", "gears_small_");
+	public static final MaterialItemType GEAR_SMALL = new MaterialItemType("gearSmall", "small_gears");
 	public static final MaterialItemType BOLT = new MaterialItemType("bolt");
 	public static final MaterialItemType SCREW = new MaterialItemType("screw");
 	public static final MaterialItemType FOIL = new MaterialItemType("foil");
@@ -37,7 +37,7 @@ public class MaterialItemType {
 	}
 
 	public String getGroupName() {
-		return groupName != null ? groupName : name + "s_";
+		return groupName != null ? groupName : name + "s";
 	}
 
 	@Override

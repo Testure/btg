@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class ItemGroups {
-	private static final String namespace = "minecraft:";
+	private static final String namespace = "common_";
 
 	public static void init() {
 		Registries.ITEM_GROUPS.getItem("minecraft:logs").add(Blocks.rubberLog.getDefaultStack());
@@ -40,12 +40,12 @@ public class ItemGroups {
 			}
 			if (material.hasOre()) {
 				for (IOreStoneType type : OreStoneType.TYPES) {
-					addToGroup(Material.getOreForMaterial(material.id, type), namespace + material.name + "_" + type.getName() + "_ores");
-					addToGroup(Material.getOreForMaterial(material.id, type), namespace + material.name + "_ores");
+					addToGroup(Material.getOreForMaterial(material.id, type), namespace + type.getName() + "_ores:" + material.name);
+					addToGroup(Material.getOreForMaterial(material.id, type), namespace + "ores:" + material.name);
 				}
 			}
 			if (material.hasBlock()) {
-				addToGroup(Material.getBlockForMaterial(material.id), getGroupName("blocks_", material));
+				addToGroup(Material.getBlockForMaterial(material.id), getGroupName("blocks", material));
 			}
 			if (material.hasFlag("tools")) {
 				for (IToolType toolType : ToolType.TYPES) {
@@ -58,8 +58,12 @@ public class ItemGroups {
 		}
 	}
 
+	public static String getGroup(MaterialItemType type, Material material) {
+		return namespace + type.getGroupName() + ":" + material.name;
+	}
+
 	public static String getGroupName(String type, Material material, String namespace) {
-		return namespace + type + material.name;
+		return namespace + type + ":" + material.name;
 	}
 
 	public static String getGroupName(String type, Material material) {
