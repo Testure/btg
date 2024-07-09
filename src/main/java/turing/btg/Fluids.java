@@ -16,9 +16,10 @@ public class Fluids {
 	public static void init() {
 		for (Material material : Material.MATERIALS.values()) {
 			if (material.hasFlag("fluid") || material.hasFlag("gas")) {
-				BlockFluidMaterial fluid = Blocks.fluidBlocks.get(MathHelper.floor_float(material.id / Materials.fMETA_LIMIT));
+				BlockFluidMaterial fluid = Blocks.fluidBlocks.get(material.id);
 				CatalystFluids.FLUIDS.register(BTG.MOD_ID + ":" + material.name, new FluidRegistryEntry(BTG.MOD_ID, Items.BUCKETS.get(material.id), Item.bucket, Collections.singletonList(fluid)));
 			}
 		}
+		CatalystFluids.FLUIDS.register(BTG.MOD_ID + ":steam", new FluidRegistryEntry(BTG.MOD_ID, Items.steamBucket, Item.bucket, Collections.singletonList(Blocks.steam)));
 	}
 }

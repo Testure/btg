@@ -9,6 +9,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
+import sunsetsatellite.catalyst.CatalystFluids;
 import sunsetsatellite.catalyst.fluids.api.IFluidInventory;
 import sunsetsatellite.catalyst.fluids.api.IItemFluidContainer;
 import sunsetsatellite.catalyst.fluids.impl.ItemInventoryFluid;
@@ -27,17 +28,25 @@ import java.awt.*;
 
 public class ItemBucketMaterial extends ItemBucket implements IItemFluidContainer, ICustomDescription, IColored {
 	private final Material material;
+	protected final int fluidId;
 
-	public ItemBucketMaterial(String name, int id, Material material) {
+	public ItemBucketMaterial(String name, int id, int fluidId, Material material) {
 		super(name, id, null);
 		this.material = material;
+		this.fluidId = fluidId;
+		setContainerItem(Item.bucket);
 		if (!material.hasFlag("fluid") && !material.hasFlag("gas")) {
 			withTags(ItemTags.NOT_IN_CREATIVE_MENU);
 		}
 	}
 
+	@Override
+	public boolean hasContainerItem() {
+		return true;
+	}
+
 	protected int getFluidId() {
-		return this.id - BTGConfig.BUCKET_FLUID_DIFF;
+		return this.fluidId;
 	}
 
 	protected BlockFluidMaterial getFluid() {

@@ -52,6 +52,11 @@ public class Materials {
 		.element(Elements.F)
 		.color(0x6EA7DC)
 		.build();
+	public static final Material NITROGEN = new MaterialBuilder(7, "nitrogen")
+		.gas()
+		.element(Elements.N)
+		.color(0x743373)
+		.build();
 	public static final Material MERCURY = new MaterialBuilder(25, "mercury")
 		.fluid()
 		.color(0xE6DCDC)
@@ -81,6 +86,12 @@ public class Materials {
 		.dust().ore(2)
 		.iconSet(IconSets.DULL)
 		.element(Elements.S)
+		.build();
+	public static final Material LITHIUM = new MaterialBuilder(8, "lithium")
+		.ingot().ore()
+		.iconSet(IconSets.DULL)
+		.element(Elements.Li)
+		.color(0xAAAAAA)
 		.build();
 	public static final Material IRON = new MaterialBuilder(0, "iron")
 		.ingot()

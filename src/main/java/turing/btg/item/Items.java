@@ -1,6 +1,7 @@
 package turing.btg.item;
 
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemBucket;
 import turing.btg.BTG;
 import turing.btg.BTGConfig;
 import turing.btg.api.IItemToolMaterial;
@@ -30,6 +31,7 @@ public class Items {
 
 	public static Item resin;
 	public static Item creativeSword;
+	public static Item steamBucket;
 
 	public static void init() {
 		NextID = BTGConfig.config.getInt("StartingItemID");
@@ -43,6 +45,10 @@ public class Items {
 		creativeSword = new ItemBuilder(BTG.MOD_ID)
 			.setIcon(BTG.MOD_ID + ":item/nano_saber")
 			.build(new ItemCreativeSword("creativeSword", NextID++));
+		steamBucket = new ItemBuilder(BTG.MOD_ID)
+			.setIcon(BTG.MOD_ID + ":item/steam_bucket")
+			.setContainerItem(() -> Item.bucket)
+			.build(new ItemBucketNoPlace("steamBucket", NextID++));
 
 		MaterialItemType.ITEM_TYPES.forEach(type -> MATERIAL_ITEMS.put(type, new ArrayList<>()));
 		for (int i = 0; i <= Materials.HANDLERS_NEEDED; i++) {
@@ -53,8 +59,9 @@ public class Items {
 				}
 			}
 		}
-		for (BlockFluidMaterial fluid : Blocks.fluidBlocks) {
-			BUCKETS.put(fluid.getMaterialId(), new ItemBuilder(BTG.MOD_ID).setIcon("minecraft:item/bucket").setItemModel((item) -> new ItemModelBucket(item, BTG.MOD_ID)).build(new ItemBucketMaterial("bucket" + fluid.getMaterialId(), NextBucketID++, Material.MATERIALS.get(fluid.getMaterialId()))));
+		for (int i = 0; i < Blocks.fluidBlocks.size(); i++) {
+			BlockFluidMaterial fluid = Blocks.fluidBlocks.get(i);
+			BUCKETS.put(fluid.getMaterialId(), new ItemBuilder(BTG.MOD_ID).setIcon("minecraft:item/bucket").setItemModel((item) -> new ItemModelBucket(item, BTG.MOD_ID)).build(new ItemBucketMaterial("bucket" + fluid.getMaterialId(), NextBucketID++, fluid.id, Material.MATERIALS.get(fluid.getMaterialId()))));
 		}
 		for (Material material : Material.MATERIALS.values()) {
 			if (material.hasFlag("tools")) {

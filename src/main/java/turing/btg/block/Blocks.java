@@ -4,9 +4,11 @@ import net.minecraft.client.render.block.color.BlockColor;
 import net.minecraft.client.render.block.color.BlockColorLeavesOak;
 import net.minecraft.client.render.block.model.BlockModelCrossedSquares;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
-import net.minecraft.client.render.block.model.BlockModelGrass;
+import net.minecraft.client.render.block.model.BlockModelFluid;
 import net.minecraft.client.render.colorizer.Colorizers;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockFluid;
+import net.minecraft.core.block.BlockFluidStill;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.sound.BlockSounds;
@@ -37,11 +39,12 @@ public class Blocks {
 	public static Block rubberLog;
 	public static Block rubberLeaves;
 	public static Block rubberSapling;
+	public static BlockFluid steam;
 
 	public static final Map<IOreStoneType, List<BlockOreMaterial>> ores = new HashMap<>();
 	public static final List<BlockMaterial> materialBlock = new ArrayList<>();
 	public static final List<BlockSurfaceRock> surfaceRock = new ArrayList<>();
-	public static final List<BlockFluidMaterial> fluidBlocks = new ArrayList<>();
+	public static final Map<Integer, BlockFluidMaterial> fluidBlocks = new HashMap<>();
 
 	public static void init() {
 		NextID = BTGConfig.config.getInt("StartingBlockID");
@@ -72,6 +75,12 @@ public class Blocks {
 			.setBlockModel(BlockModelCrossedSquares::new)
 			.addTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
 			.build(new BlockSaplingRubber("rubberSapling", NextID++));
+
+		steam = new BlockBuilder(BTG.MOD_ID)
+			.setTextures(BTG.MOD_ID + ":block/fluids/fluid.steam")
+			.setBlockModel(BlockModelFluid::new)
+			.addTags(BlockTags.IS_LAVA, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.PLACE_OVERWRITES)
+			.build(new BlockFluidStill("steam", NextID++, net.minecraft.core.block.material.Material.water));
 
 		BlockBuilder material = new BlockBuilder(BTG.MOD_ID).addTags(BlockTags.NOT_IN_CREATIVE_MENU).setItemBlock(ItemBlockMaterial::new);
 
@@ -115,10 +124,11 @@ public class Blocks {
 		}
 		for (Material material1 : Material.MATERIALS.values()) {
 			long temp = material1.hasFlag("gas") ? material1.getFlagValue(MaterialFlag.GAS) : material1.hasFlag("fluid") ? material1.getFlagValue(MaterialFlag.FLUID) : 1;
-			fluidBlocks.add(new BlockBuilder(BTG.MOD_ID)
+			fluidBlocks.put(material1.id, new BlockBuilder(BTG.MOD_ID)
 					.setTextures(BTG.MOD_ID + ":block/liquid")
 					.setHardness(100F)
 					.setLightOpacity(3)
+					.setBlockModel(BlockModelFluid::new)
 					.addTags(BlockTags.PLACE_OVERWRITES, BlockTags.NOT_IN_CREATIVE_MENU, temp > 200 ? BlockTags.IS_LAVA : BlockTags.IS_WATER)
 					.setBlockColor((b) -> new BlockColorStatic(material1.getColor()))
 					.build(new BlockFluidMaterial(material1.name, NextFluidID++, material1))

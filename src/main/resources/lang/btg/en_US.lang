@@ -3,6 +3,7 @@ enchantment.btg.tree_capitator.name=Tree Capitator
 tile.btg.rubberSapling.name=Rubber Sapling
 tile.btg.rubberLeaves.name=Rubber Leaves
 tile.btg.rubberLog.name=Rubber Log
+tile.btg.steam.name=Steam
 tile.btg.surfaceRock.name=Surface Rock
 tile.btg.oreStone.name=Stone %s Ore
 tile.btg.oreBasalt.name=Basalt %s Ore
@@ -28,10 +29,12 @@ tile.btg.surfaceRock.desc=A tiny bit of %s embedded in some rocks.
 
 item.btg.stickyResin.name=Sticky Resin
 item.btg.creativeSword.name=Greg's Flaming Laser Sword
+item.btg.steamBucket.name=Bucket of Steam
 item.btg.bucket.name=Bucket of %s
 
 item.btg.stickyResin.desc=A sticky substance that comes from rubber trees.
 item.btg.creativeSword.desc=Instantly cut down any foe with this legendary weapon.
+item.btg.steamBucket.desc=A bucket full of Steam
 item.btg.bucket.desc=A bucket full of %s
 
 item.btg.ingot.name=%s Ingot

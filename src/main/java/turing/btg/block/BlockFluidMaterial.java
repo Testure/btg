@@ -21,6 +21,11 @@ public class BlockFluidMaterial extends BlockFluid {
 	}
 
 	@Override
+	public String getLanguageKey(int meta) {
+		return "material." + material.name;
+	}
+
+	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
 		return false;
 	}
