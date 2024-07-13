@@ -61,7 +61,9 @@ public class Items {
 		}
 		for (int i = 0; i < Blocks.fluidBlocks.size(); i++) {
 			BlockFluidMaterial fluid = Blocks.fluidBlocks.get(i);
-			BUCKETS.put(fluid.getMaterialId(), new ItemBuilder(BTG.MOD_ID).setIcon("minecraft:item/bucket").setItemModel((item) -> new ItemModelBucket(item, BTG.MOD_ID)).build(new ItemBucketMaterial("bucket" + fluid.getMaterialId(), NextBucketID++, fluid.id, Material.MATERIALS.get(fluid.getMaterialId()))));
+			if (fluid != null) {
+				BUCKETS.put(fluid.getMaterialId(), new ItemBuilder(BTG.MOD_ID).setIcon("minecraft:item/bucket").setItemModel((item) -> new ItemModelBucket(item, BTG.MOD_ID)).build(new ItemBucketMaterial("bucket" + fluid.getMaterialId(), NextBucketID++, fluid.id, Material.MATERIALS.get(fluid.getMaterialId()))));
+			}
 		}
 		for (Material material : Material.MATERIALS.values()) {
 			if (material.hasFlag("tools")) {

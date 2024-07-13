@@ -123,8 +123,9 @@ public class Blocks {
 			);
 		}
 		for (Material material1 : Material.MATERIALS.values()) {
-			long temp = material1.hasFlag("gas") ? material1.getFlagValue(MaterialFlag.GAS) : material1.hasFlag("fluid") ? material1.getFlagValue(MaterialFlag.FLUID) : 1;
-			fluidBlocks.put(material1.id, new BlockBuilder(BTG.MOD_ID)
+			if (material1.hasFlag("gas") || material1.hasFlag("fluid")) {
+				long temp = material1.hasFlag("gas") ? material1.getFlagValue(MaterialFlag.GAS) : material1.hasFlag("fluid") ? material1.getFlagValue(MaterialFlag.FLUID) : 1;
+				fluidBlocks.put(material1.id, new BlockBuilder(BTG.MOD_ID)
 					.setTextures(BTG.MOD_ID + ":block/liquid")
 					.setHardness(100F)
 					.setLightOpacity(3)
@@ -132,7 +133,8 @@ public class Blocks {
 					.addTags(BlockTags.PLACE_OVERWRITES, BlockTags.NOT_IN_CREATIVE_MENU, temp > 200 ? BlockTags.IS_LAVA : BlockTags.IS_WATER)
 					.setBlockColor((b) -> new BlockColorStatic(material1.getColor()))
 					.build(new BlockFluidMaterial(material1.name, NextFluidID++, material1))
-			);
+				);
+			} else NextFluidID++;
 		}
 	}
 }
