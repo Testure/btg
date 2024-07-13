@@ -18,8 +18,10 @@ import org.useless.dragonfly.model.block.BlockModelDragonFly;
 import turing.btg.BTG;
 import turing.btg.BTGConfig;
 import turing.btg.api.IOreStoneType;
+import turing.btg.api.Machine;
 import turing.btg.client.*;
 import turing.btg.item.ItemBlockMaterial;
+import turing.btg.machines.Machines;
 import turing.btg.material.Material;
 import turing.btg.material.MaterialFlag;
 import turing.btg.material.Materials;
@@ -34,6 +36,7 @@ import java.util.Map;
 public class Blocks {
 	protected static int NextID;
 	protected static int NextMaterialID;
+	public static int NextMachineID;
 	protected static int NextFluidID;
 
 	public static Block rubberLog;
@@ -49,6 +52,7 @@ public class Blocks {
 	public static void init() {
 		NextID = BTGConfig.config.getInt("StartingBlockID");
 		NextMaterialID = BTGConfig.config.getInt("StartingMaterialBlockID");
+		NextMachineID = BTGConfig.config.getInt("StartingMachineBlockID");
 		NextFluidID = BTGConfig.config.getInt("StartingMaterialFluidID");
 
 		rubberLog = new BlockBuilder(BTG.MOD_ID)
@@ -81,6 +85,10 @@ public class Blocks {
 			.setBlockModel(BlockModelFluid::new)
 			.addTags(BlockTags.IS_LAVA, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.PLACE_OVERWRITES)
 			.build(new BlockFluidStill("steam", NextID++, net.minecraft.core.block.material.Material.water));
+
+		for (Machine machine : Machines.MACHINES.values()) {
+			machine.registerBlocks();
+		}
 
 		BlockBuilder material = new BlockBuilder(BTG.MOD_ID).addTags(BlockTags.NOT_IN_CREATIVE_MENU).setItemBlock(ItemBlockMaterial::new);
 

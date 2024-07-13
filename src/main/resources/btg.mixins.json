@@ -7,15 +7,21 @@
     "mixins": [
       "ContainerPlayerCreativeMixin",
       "RecipeRegistryMixin",
-      "RecipeSymbolMixin"
+      "RecipeSymbolMixin",
+      "PlayerControllerMixin",
+      "EntityPlayerMixin"
     ],
     "client": [
-      "RenderBlocksMixin",
+      "RenderGlobalMixin",
       "EntityDiggingFXMixin",
       "GuiTooltipMixin",
       "RenderEngineMixin",
-      "btwaila.BaseInfoComponentMixin"
+      "btwaila.BaseInfoComponentMixin",
+      "NetClientHandlerMixin"
     ],
+  "server": [
+    "EntityPlayerMPMixin"
+  ],
     "injectors": {
         "defaultRequire": 1
   }

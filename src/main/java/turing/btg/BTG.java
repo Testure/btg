@@ -1,58 +1,67 @@
 package turing.btg;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.stitcher.IconCoordinate;
 import net.minecraft.client.render.stitcher.TextureRegistry;
-import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.data.registry.Registries;
-import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.tag.Tag;
-import net.minecraft.core.item.Item;
+import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.server.entity.player.EntityPlayerMP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sunsetsatellite.catalyst.CatalystFluids;
-import sunsetsatellite.catalyst.fluids.registry.FluidRegistryEntry;
 import turing.btg.api.IOreStoneType;
 import turing.btg.api.IToolType;
 import turing.btg.api.ToolType;
-import turing.btg.block.BlockFluidMaterial;
 import turing.btg.block.BlockMaterial;
 import turing.btg.block.BlockOreMaterial;
 import turing.btg.block.Blocks;
 import turing.btg.client.FallingOreRenderer;
 import turing.btg.enchantments.EnchantmentTreeCapitator;
 import turing.btg.entity.EntityFallingOre;
+import turing.btg.entity.tile.TileEntityMachine;
 import turing.btg.item.Items;
 import turing.btg.material.Material;
 import turing.btg.material.MaterialItemType;
 import turing.btg.material.Materials;
 import turing.btg.material.OreStoneType;
+import turing.btg.interfaces.IEntityPlayerMP;
+import turing.btg.modularui.ModularUI;
+import turing.btg.modularui.api.IModularUITile;
+import turing.btg.modularui.impl.ModularUIContainer;
+import turing.btg.modularui.impl.ModularUIScreen;
+import turing.btg.modularui.impl.PacketOpenModularUI;
 import turing.btg.recipe.ItemGroups;
 import turing.btg.recipe.Recipes;
 import turing.enchantmentlib.api.EnchantmentBuilder;
-import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.helper.CreativeHelper;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.NetworkHelper;
 import turniplabs.halplibe.helper.RecipeBuilder;
-import turniplabs.halplibe.helper.RegistryHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collections;
 
 public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntrypoint, RecipeEntrypoint {
     public static final String MOD_ID = "btg";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static EnchantmentTreeCapitator TREE_CAPITATOR;
+	public static final DamageType HEAT = new DamageType(BTG.MOD_ID + ".damagetype.heat", true, true, 4);
 	public static final Tag<Block> MINEABLE_BY_WRENCH = Tag.of("mineable_by_wrench");
 	public static final Tag<Block> MINEABLE_BY_HAMMER = Tag.of("mineable_by_hammer");
+
+	public static final int VOLTAGE_TIERS = 3;
+
+	static {
+		NetworkHelper.register(PacketOpenModularUI.class, true, true);
+	}
 
 	@Override
     public void onInitialize() {
@@ -70,6 +79,7 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
 		Blocks.init();
 		Items.init();
 		Fluids.init();
+		EntityHelper.createTileEntity(TileEntityMachine.class, "machine");
 	}
 
 	@Override
@@ -118,13 +128,23 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
 
 	@Override
 	public void initNamespaces() {
+		Recipes.registerNamespace();
 		RecipeBuilder.initNameSpace(MOD_ID);
 	}
 
 	@Override
 	public void onRecipesReady() {
+		Recipes.registerNamespace();
 		ItemGroups.init();
 		Recipes.init();
+	}
+
+	public static void displayModularUI(EntityPlayer player, ModularUI ui, IModularUITile tile, int x, int y, int z) {
+		if (player instanceof EntityPlayerMP) {
+			((IEntityPlayerMP) player).displayModularUI(new ModularUIContainer(player.inventory, tile, ui), tile, x, y, z);
+		} else {
+			Minecraft.getMinecraft(BTG.class).displayGuiScreen(new ModularUIScreen(new ModularUIContainer(player.inventory, tile, ui), ui, tile, player.inventory));
+		}
 	}
 
 	public static File getAsset(String path) {

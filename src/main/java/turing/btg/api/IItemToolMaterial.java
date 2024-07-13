@@ -19,7 +19,7 @@ import turing.enchantmentlib.api.EnchantmentData;
 /** Tool logic implemented here so that tools can extend the proper classes
  *
  */
-public interface IItemToolMaterial extends ICustomDescription, IColored, ICraftingTool {
+public interface IItemToolMaterial extends ICustomDescription, IColored, ICraftingTool, IOverlayShower {
 	int getMaterialID();
 
 	default String getMaterialName() {
@@ -143,6 +143,11 @@ public interface IItemToolMaterial extends ICustomDescription, IColored, ICrafti
 
 	default boolean isFull3D() {
 		return getToolType().isFull3D();
+	}
+
+	@Override
+	default boolean shouldShowOverlay(ItemStack stack, Block block) {
+		return false;
 	}
 
 	@Override

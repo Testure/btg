@@ -97,4 +97,9 @@ public class ItemToolWrench extends ItemTool implements IItemToolMaterial {
 	public int getItemId() {
 		return this.id;
 	}
+
+	@Override
+	public boolean shouldShowOverlay(ItemStack stack, Block block) {
+		return true;
+	}
 }
