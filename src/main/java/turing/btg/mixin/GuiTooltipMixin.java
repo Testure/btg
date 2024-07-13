@@ -31,7 +31,7 @@ public class GuiTooltipMixin {
 
 	@Inject(method = "getTooltipText(Lnet/minecraft/core/item/ItemStack;ZLnet/minecraft/core/player/inventory/slot/Slot;)Ljava/lang/String;", at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;", ordinal = 0))
 	public void customTooltips(ItemStack itemStack, boolean showDescription, Slot slot, CallbackInfoReturnable<String> cir, @Local StringBuilder text) {
-		ItemStack stack = slot.getStack();
+		ItemStack stack = slot != null ? slot.getStack() : itemStack;
 		boolean ctrlPressed = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
 		boolean shiftPressed = Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
 		if (stack != null && stack.getItem() instanceof ICustomDescription) {
