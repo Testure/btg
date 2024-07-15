@@ -9,18 +9,13 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.Packet140TileEntityData;
-import net.minecraft.core.player.inventory.InventorySorter;
-import net.minecraft.server.entity.player.EntityPlayerMP;
-import sunsetsatellite.catalyst.core.util.Direction;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
 import turing.btg.api.MachineBehavior;
 import turing.btg.block.BlockMachine;
 import turing.btg.modularui.ModularUI;
 import turing.btg.modularui.api.IModularUITile;
-import turing.btg.modularui.api.ITheme;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class TileEntityMachine extends TileEntity implements IModularUITile {
 	protected MachineBehavior behavior;
@@ -232,10 +227,5 @@ public class TileEntityMachine extends TileEntity implements IModularUITile {
 	@Override
 	public int getTransferSpeed() {
 		return behavior != null ? behavior.getFluidTransferSpeed() : 1000;
-	}
-
-	@Override
-	public int getActiveFluidSlot(Direction direction) {
-		return behavior != null ? behavior.getFluidSlotForDirection(direction) : 0;
 	}
 }

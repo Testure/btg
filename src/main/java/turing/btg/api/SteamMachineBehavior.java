@@ -81,11 +81,6 @@ public class SteamMachineBehavior<T extends SimpleRecipeEntry> extends RecipeMap
 			if (currentRecipe == null || isWorkingDisabled()) {
 				setActive(false);
 			}
-			if (tank[0] == null) {
-				tank[0] = new FluidStack(Blocks.steam, 10);
-			} else {
-				tank[0].amount = Math.min(1000 * 64, tank[0].amount + 10);
-			}
 		}
 	}
 

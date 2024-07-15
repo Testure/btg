@@ -8,7 +8,6 @@ import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
-import sunsetsatellite.catalyst.core.util.Direction;
 import sunsetsatellite.catalyst.fluids.api.IFluidInventory;
 import sunsetsatellite.catalyst.fluids.api.IItemFluidContainer;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
@@ -154,18 +153,20 @@ public class SteamBoilerMachineBehavior extends RunnableMachineBehavior {
 					TileEntity te = getWorld().getBlockTileEntity(getX() + side.getOffsetX(), getY() + side.getOffsetY(), getZ() + side.getOffsetZ());
 					if (te instanceof IFluidInventory) {
 						IFluidInventory fluidInventory = (IFluidInventory) te;
-						int slot = ((IFluidInventory) te).getActiveFluidSlot(Direction.getDirectionFromSide(side.getOpposite().getId()));
 						FluidStack steam = new FluidStack(Blocks.steam, Math.min(getFluidTransferSpeed(), tank[getSteamSlot()].amount));
 						int amount = steam.amount;
-						if (fluidInventory.canInsertFluid(slot, steam)) {
-							steam = fluidInventory.insertFluid(slot, steam);
-							if (steam != null && steam.amount > 0) amount -= steam.amount;
-							if (tank[getSteamSlot()].amount - amount > 0) {
-								tank[getSteamSlot()].amount -= amount;
-							} else {
-								tank[getSteamSlot()] = null;
+						for (int slot = 0; slot < fluidInventory.getFluidInventorySize(); slot++) {
+							if (fluidInventory.canInsertFluid(slot, steam)) {
+								steam = fluidInventory.insertFluid(slot, steam);
+								if (steam != null && steam.amount > 0) amount -= steam.amount;
+								if (tank[getSteamSlot()].amount - amount > 0) {
+									tank[getSteamSlot()].amount -= amount;
+								} else {
+									tank[getSteamSlot()] = null;
+								}
+								markDirty();
+								break;
 							}
-							markDirty();
 						}
 					}
 				} else break;
