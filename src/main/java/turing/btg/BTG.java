@@ -2,15 +2,16 @@ package turing.btg;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.stitcher.IconCoordinate;
-import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.data.tag.Tag;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.PlayerServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turing.btg.api.IOreStoneType;
@@ -19,9 +20,7 @@ import turing.btg.api.ToolType;
 import turing.btg.block.BlockMaterial;
 import turing.btg.block.BlockOreMaterial;
 import turing.btg.block.Blocks;
-import turing.btg.client.FallingOreRenderer;
 import turing.btg.enchantments.EnchantmentTreeCapitator;
-import turing.btg.entity.EntityFallingOre;
 import turing.btg.entity.tile.TileEntityMachine;
 import turing.btg.item.Items;
 import turing.btg.material.Material;
@@ -53,9 +52,9 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static EnchantmentTreeCapitator TREE_CAPITATOR;
-	public static final DamageType HEAT = new DamageType(BTG.MOD_ID + ".damagetype.heat", true, true, 4);
-	public static final Tag<Block> MINEABLE_BY_WRENCH = Tag.of("mineable_by_wrench");
-	public static final Tag<Block> MINEABLE_BY_HAMMER = Tag.of("mineable_by_hammer");
+	public static final DamageType HEAT = new DamageType(BTG.MOD_ID + ".damagetype.heat", true, true, "minecraft:gui/hud/protection_fire");
+	public static final Tag<Block<?>> MINEABLE_BY_WRENCH = Tag.of("mineable_by_wrench");
+	public static final Tag<Block<?>> MINEABLE_BY_HAMMER = Tag.of("mineable_by_hammer");
 
 	public static final int VOLTAGE_TIERS = 3;
 
@@ -78,8 +77,8 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
 		Materials.init();
 		Blocks.init();
 		Items.init();
-		Fluids.init();
-		EntityHelper.createTileEntity(TileEntityMachine.class, "machine");
+		//Fluids.init();
+		EntityHelper.createTileEntity(TileEntityMachine.class, NamespaceID.getPermanent(MOD_ID, "machine"));
 	}
 
 	@Override
@@ -99,11 +98,11 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
 				for (IOreStoneType stoneType : OreStoneType.TYPES) {
 					BlockOreMaterial ore = Blocks.ores.get(stoneType).get(handlerID);
 					if (ore != null)
-						CreativeHelper.setPriority(ore, meta, ore.id + material.id);
+						CreativeHelper.setPriority(ore, meta, ore.id() + material.id);
 				}
 			}
 			if (material.hasBlock() && Material.getBlockForMaterial(material.id).getItem().getKey().contains(MOD_ID)) {
-				CreativeHelper.setPriority(materialBlock, meta, materialBlock.id + material.id);
+				CreativeHelper.setPriority(materialBlock, meta, materialBlock.id() + material.id);
 			}
 			if (material.hasFlag("tools")) {
 				int base = BTGConfig.config.getInt("StartingToolID");
@@ -118,7 +117,7 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
 
 	@Override
 	public void beforeClientStart() {
-		EntityHelper.Assignment.queueEntityRenderer(EntityFallingOre.class, FallingOreRenderer::new);
+		//EntityHelper.Assignment.queueEntityRenderer(EntityFallingOre.class, FallingOreRenderer::new);
 	}
 
 	@Override
@@ -139,11 +138,11 @@ public class BTG implements ModInitializer, GameStartEntrypoint, ClientStartEntr
 		Recipes.init();
 	}
 
-	public static void displayModularUI(EntityPlayer player, ModularUI ui, IModularUITile tile, int x, int y, int z) {
-		if (player instanceof EntityPlayerMP) {
+	public static void displayModularUI(Player player, ModularUI ui, IModularUITile tile, int x, int y, int z) {
+		if (player instanceof PlayerServer) {
 			((IEntityPlayerMP) player).displayModularUI(new ModularUIContainer(player.inventory, tile, ui), tile, x, y, z);
 		} else {
-			Minecraft.getMinecraft(BTG.class).displayGuiScreen(new ModularUIScreen(new ModularUIContainer(player.inventory, tile, ui), ui, tile, player.inventory));
+			Minecraft.getMinecraft().displayScreen(new ModularUIScreen(new ModularUIContainer(player.inventory, tile, ui), ui, tile, player.inventory));
 		}
 	}
 

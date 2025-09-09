@@ -22,13 +22,13 @@ public class GuiTexture {
 
 	public int getTextureId() {
 		if (textureId == 0) {
-			textureId = Minecraft.getMinecraft(this).renderEngine.getTexture(texturePath);
+			textureId = Minecraft.getMinecraft().textureManager.loadTexture(texturePath).id();
 		}
 		return textureId;
 	}
 
 	public void bindTexture() {
-		Minecraft.getMinecraft(this).renderEngine.bindTexture(getTextureId());
+		Minecraft.getMinecraft().textureManager.bindTexture(getTextureId());
 	}
 
 	public int getWidth() {

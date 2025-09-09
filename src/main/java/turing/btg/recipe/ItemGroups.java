@@ -1,10 +1,7 @@
 package turing.btg.recipe;
 
 import net.minecraft.core.data.registry.Registries;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import org.lwjgl.Sys;
-import turing.btg.BTG;
 import turing.btg.api.IOreStoneType;
 import turing.btg.api.IToolType;
 import turing.btg.api.ToolType;
@@ -17,7 +14,6 @@ import turing.btg.material.OreStoneType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class ItemGroups {
 	private static final String namespace = "common_";

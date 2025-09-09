@@ -14,7 +14,7 @@ import turing.btg.api.ICustomDescription;
 @Mixin(targets = "toufoumaster.btwaila.gui.components.BaseInfoComponent", remap = false)
 public class BaseInfoComponentMixin {
 	@Inject(method = "baseBlockInfo", at = @At(value = "CONSTANT", args = "stringValue=Minecraft", shift = At.Shift.AFTER))
-	public void changeNameAndDesc(Block block, int blockMetadata, ItemStack[] blockDrops, CallbackInfo ci, @Local(name = "blockName") LocalRef<String> blockName, @Local(name = "blockDesc") LocalRef<String> blockDesc) {
+	public void changeNameAndDesc(Block<?> block, int blockMetadata, ItemStack[] blockDrops, CallbackInfo ci, @Local(name = "blockName") LocalRef<String> blockName, @Local(name = "blockDesc") LocalRef<String> blockDesc) {
 		Item item = block.asItem();
 		ItemStack stack = item.getDefaultStack();
 		stack.setMetadata(blockMetadata);

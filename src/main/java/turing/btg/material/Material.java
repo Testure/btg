@@ -80,7 +80,7 @@ public class Material {
 			return MATERIALS.get(((ItemMaterial) item.getItem()).getMaterialIDForMeta(item.getMetadata()));
 		}
 		for (Material material : MATERIALS.values()) {
-			if (material.existingBlock != null && material.existingBlock.id == item.itemID) {
+			if (material.existingBlock != null && material.existingBlock.id() == item.itemID) {
 				return material;
 			}
 			if (material.manualItemProvider != null) {

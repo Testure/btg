@@ -4,7 +4,7 @@ import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryCraftingShaped;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.InventoryCrafting;
+import net.minecraft.core.player.inventory.menu.MenuCrafting;
 import turing.btg.api.ICraftingTool;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class RecipeEntryCraftingShapedTools extends RecipeEntryCraftingShaped {
 	}
 
 	@Override
-	public boolean matches(InventoryCrafting inventory) {
+	public boolean matches(MenuCrafting inventory) {
 		for(int i = 0; i <= 3 - this.recipeWidth; ++i) {
 			for(int j = 0; j <= 3 - this.recipeHeight; ++j) {
 				if (this.isRecipeMatching(inventory, i, j, true)) {
@@ -66,7 +66,7 @@ public class RecipeEntryCraftingShapedTools extends RecipeEntryCraftingShaped {
 		return false;
 	}
 
-	protected boolean isRecipeMatching(InventoryCrafting inventory, int i, int j, boolean flag) {
+	protected boolean isRecipeMatching(MenuCrafting inventory, int i, int j, boolean flag) {
 		for(int k = 0; k < 3; ++k) {
 			for(int l = 0; l < 3; ++l) {
 				int i1 = k - i;
@@ -100,7 +100,7 @@ public class RecipeEntryCraftingShapedTools extends RecipeEntryCraftingShaped {
 	}
 
 	@Override
-	public ItemStack[] onCraftResult(InventoryCrafting inventorycrafting) {
+	public ItemStack[] onCraftResult(MenuCrafting inventorycrafting) {
 		ItemStack[] returnStack = new ItemStack[9];
 
 		for (int i = 0; i < inventorycrafting.getSizeInventory(); ++i) {

@@ -1,6 +1,6 @@
 package turing.btg.material;
 
-import net.minecraft.client.render.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 
 public class MaterialIconSetCoal extends MaterialIconSet {
 	protected MaterialIconSetCoal() {

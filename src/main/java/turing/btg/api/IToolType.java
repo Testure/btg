@@ -1,6 +1,6 @@
 package turing.btg.api;
 
-import net.minecraft.client.render.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.item.Item;
 import turing.btg.BTG;
 import turing.btg.util.Function3;

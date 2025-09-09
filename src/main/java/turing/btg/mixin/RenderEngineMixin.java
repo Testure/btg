@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.RenderEngine;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.dynamictexture.DynamicTextureCustom;
-import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.util.helper.Textures;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,7 +1,7 @@
 package turing.btg.material;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 
 public class MaterialIconSetShiny extends MaterialIconSet {
 	public MaterialIconSetShiny() {

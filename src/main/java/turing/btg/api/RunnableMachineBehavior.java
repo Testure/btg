@@ -1,6 +1,6 @@
 package turing.btg.api;
 
-import com.mojang.nbt.CompoundTag;
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.util.helper.Side;
 

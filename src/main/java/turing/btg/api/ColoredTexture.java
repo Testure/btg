@@ -1,7 +1,8 @@
 package turing.btg.api;
 
-import net.minecraft.client.render.stitcher.IconCoordinate;
-import net.minecraft.client.render.stitcher.TextureRegistry;
+
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 
 public class ColoredTexture {
 	protected IconCoordinate texture;

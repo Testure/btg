@@ -2,12 +2,10 @@ package turing.btg;
 
 import turing.btg.config.OreVeinConfig;
 import turing.btg.config.SurfacePatternConfig;
-import turniplabs.halplibe.util.ConfigUpdater;
 import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
 
 public class BTGConfig {
-	private static final ConfigUpdater updater = ConfigUpdater.fromProperties();
 	private static final Toml properties = new Toml("BTG Config");
 	public static final TomlConfigHandler config;
 	public static final int BUCKET_FLUID_DIFF;
@@ -23,7 +21,7 @@ public class BTGConfig {
 		properties.addEntry("StartingBucketID", 32400);
 		properties.addEntry("DefaultPaintingColor", 0xD2DCFF);
 
-		config = new TomlConfigHandler(updater, BTG.MOD_ID, properties);
+		config = new TomlConfigHandler(BTG.MOD_ID, properties);
 		SurfacePatternConfig.init();
 		OreVeinConfig.init();
 

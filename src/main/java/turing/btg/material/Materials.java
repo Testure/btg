@@ -1,8 +1,10 @@
 package turing.btg.material;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import turing.btg.BTG;
@@ -102,7 +104,7 @@ public class Materials {
 		.toolStats(256, 6.0F, 2)
 		.withFlag(MaterialFlag.PLATE, MaterialFlag.ROD, MaterialFlag.RING, MaterialFlag.GEAR, MaterialFlag.SMALL_GEAR, MaterialFlag.FOIL, MaterialFlag.SCREW, MaterialFlag.GENERATE_MORTAR, MaterialFlag.GENERATE_SCREWDRIVER, MaterialFlag.GENERATE_WIRE_CUTTERS, MaterialFlag.GENERATE_CROWBAR, MaterialFlag.MANUAL_CRUSHING)
 		.withExistingItems(IRON_ITEMS)
-		.withExistingBlock(Block.blockIron)
+		.withExistingBlock(Blocks.BLOCK_IRON)
 		.build();
 	public static final Material ALUMINUM = new MaterialBuilder(18, "aluminum")
 		.ingot().ore()
@@ -128,7 +130,7 @@ public class Materials {
 		.toolStats(new ToolStats.Builder(1536, 14.0F).setDamage(4).setMiningLevel(3).setHitDelay(4).build())
 		.withFlag(MaterialFlag.PLATE, MaterialFlag.ROD, MaterialFlag.GEAR)
 		.withExistingItems(DIAMOND_ITEMS)
-		.withExistingBlock(Block.blockDiamond)
+		.withExistingBlock(Blocks.BLOCK_DIAMOND)
 		.build();
 	public static final Material RUBY = new MaterialBuilder(27, "ruby")
 		.gem().ore(6)
@@ -145,7 +147,7 @@ public class Materials {
 		.components(CARBON)
 		.withFlag(MaterialFlag.MANUAL_CRUSHING)
 		.withExistingItems(COAL_ITEMS)
-		.withExistingBlock(Block.blockCoal)
+		.withExistingBlock(Blocks.BLOCK_COAL)
 		.build();
 	public static final Material PYRITE = new MaterialBuilder(24, "pyrite")
 		.dust().ore(2)
@@ -163,7 +165,7 @@ public class Materials {
 		.toolStats(new ToolStats.Builder(64, 5.5F).setMiningLevel(2).setDamage(3).setSilkTouch().build())
 		.withFlag(MaterialFlag.PLATE, MaterialFlag.ROD, MaterialFlag.RING, MaterialFlag.FOIL, MaterialFlag.SCREW, MaterialFlag.GEAR, MaterialFlag.MANUAL_CRUSHING, MaterialFlag.GENERATE_SCREWDRIVER)
 		.withExistingItems(GOLD_ITEMS)
-		.withExistingBlock(Block.blockGold)
+		.withExistingBlock(Blocks.BLOCK_GOLD)
 		.build();
 	public static final Material SILICON = new MaterialBuilder(13, "silicon")
 		.ingot()
@@ -191,7 +193,7 @@ public class Materials {
 		.color(0x4646DC)
 		.iconSet(IconSets.LAPIS)
 		.withExistingItems(LAPIS_ITEMS)
-		.withExistingBlock(Block.blockLapis)
+		.withExistingBlock(Blocks.BLOCK_LAPIS)
 		.components(new MaterialStack(LAZURITE, 12), new MaterialStack(SODALITE, 2), new MaterialStack(PYRITE, 1), new MaterialStack(CALCITE, 1))
 		.build();
 	public static final Material REDSTONE = new MaterialBuilder(5, "redstone")
@@ -202,7 +204,7 @@ public class Materials {
 		.iconSet(IconSets.ROUGH)
 		.withFlag(MaterialFlag.PLATE)
 		.withExistingItems(REDSTONE_ITEMS)
-		.withExistingBlock(Block.blockRedstone)
+		.withExistingBlock(Blocks.BLOCK_REDSTONE)
 		.components(new MaterialStack(SILICON, 1), new MaterialStack(PYRITE, 5), new MaterialStack(RUBY, 1), new MaterialStack(MERCURY, 3))
 		.build();
 	public static final Material STEEL = new MaterialBuilder(6, "steel")
@@ -215,7 +217,7 @@ public class Materials {
 		.toolStats(new ToolStats.Builder(4608, 7.0F).setMiningLevel(3).withEnchant(BTG.TREE_CAPITATOR, 1).build())
 		.withFlag(MaterialFlag.PLATE, MaterialFlag.ROD, MaterialFlag.RING, MaterialFlag.ROTOR, MaterialFlag.FOIL, MaterialFlag.SCREW, MaterialFlag.GEAR, MaterialFlag.GENERATE_MORTAR, MaterialFlag.GENERATE_SCREWDRIVER, MaterialFlag.GENERATE_WIRE_CUTTERS, MaterialFlag.GENERATE_CROWBAR)
 		.withExistingItems(STEEL_ITEMS)
-		.withExistingBlock(Block.blockSteel)
+		.withExistingBlock(Blocks.BLOCK_STEEL)
 		.build();
 	public static final Material COPPER = new MaterialBuilder(9, "copper")
 		.ingot()
@@ -275,7 +277,7 @@ public class Materials {
 		.components(new MaterialStack(SILICON), new MaterialStack(OXYGEN, 2))
 		.withFlag(MaterialFlag.PLATE)
 		.withExistingItems(QUARTZ_ITEMS)
-		.withExistingBlock(Block.blockQuartz)
+		.withExistingBlock(Blocks.BLOCK_QUARTZ)
 		.build();
 	public static final Material GRAPHITE = new MaterialBuilder(29, "graphite")
 		.ore()
@@ -523,14 +525,14 @@ public class Materials {
 		.color(0xCDCDCD)
 		.iconSet(IconSets.ROUGH)
 		.withFlag(MaterialFlag.MANUAL_CRUSHING, MaterialFlag.PLATE, MaterialFlag.ROD, MaterialFlag.GEAR, MaterialFlag.NO_BLOCK_COMPACTING, MaterialFlag.NO_SMELTING)
-		.withExistingBlock(Block.cobbleStone)
+		.withExistingBlock(Blocks.COBBLE_STONE)
 		.build();
 	public static final Material WOOD = new MaterialBuilder(67, "wood")
 		.dust()
 		.color(0x896727)
 		.iconSet(IconSets.WOOD)
 		.withFlag(MaterialFlag.PLATE, MaterialFlag.ROD, MaterialFlag.SCREW, MaterialFlag.GEAR, MaterialFlag.NO_BLOCK_COMPACTING, MaterialFlag.NO_SMELTING)
-		.withExistingBlock(Block.planksOak)
+		.withExistingBlock(Blocks.PLANKS_OAK)
 		.withExistingItems(WOOD_ITEMS)
 		.build();
 	public static final Material GRANITE = new MaterialBuilder(68, "granite")
@@ -539,7 +541,7 @@ public class Materials {
 		.iconSet(IconSets.ROUGH)
 		.components(new MaterialStack(QUARTZ, 3), new MaterialStack(REDSTONE))
 		.withFlag(MaterialFlag.NO_SMELTING, MaterialFlag.NO_BLOCK_COMPACTING)
-		.withExistingBlock(Block.cobbleGranite)
+		.withExistingBlock(Blocks.COBBLE_GRANITE)
 		.build();
 	public static final Material MAGNETIC_IRON = new MaterialBuilder(69, "magnetic_iron")
 		.ingot()
@@ -578,7 +580,7 @@ public class Materials {
 		.components(new MaterialStack(MAGNESIUM, 2), new MaterialStack(IRON), new MaterialStack(SILICON_DIOXIDE, 2))
 		.withFlag(MaterialFlag.PLATE)
 		.withExistingItems(OLIVINE_ITEMS)
-		.withExistingBlock(Block.blockOlivine)
+		.withExistingBlock(Blocks.BLOCK_OLIVINE)
 		.build();
 	public static final Material BASALT = new MaterialBuilder(75, "basalt")
 		.dust()
@@ -586,14 +588,14 @@ public class Materials {
 		.iconSet(IconSets.ROUGH)
 		.components(new MaterialStack(OLIVINE), new MaterialStack(CALCITE, 3), new MaterialStack(FLINT, 8))
 		.withFlag(MaterialFlag.NO_BLOCK_COMPACTING)
-		.withExistingBlock(Block.cobbleBasalt)
+		.withExistingBlock(Blocks.COBBLE_BASALT)
 		.build();
 	public static final Material NETHERRACK = new MaterialBuilder(76, "netherrack")
 		.dust()
 		.color(0xC80000)
 		.iconSet(IconSets.ROUGH)
 		.withFlag(MaterialFlag.NO_BLOCK_COMPACTING)
-		.withExistingBlock(Block.netherrack)
+		.withExistingBlock(Blocks.NETHERRACK)
 		.build();
 	public static final Material LIMESTONE = new MaterialBuilder(77, "limestone")
 		.dust()
@@ -601,7 +603,7 @@ public class Materials {
 		.iconSet(IconSets.ROUGH)
 		.components(new MaterialStack(CALCITE, 2), new MaterialStack(OXYGEN, 2))
 		.withFlag(MaterialFlag.NO_BLOCK_COMPACTING)
-		.withExistingBlock(Block.cobbleLimestone)
+		.withExistingBlock(Blocks.COBBLE_LIMESTONE)
 		.build();
 	public static final Material GLOWSTONE = new MaterialBuilder(78, "glowstone")
 		.dust().fluid(1200)
@@ -609,7 +611,7 @@ public class Materials {
 		.iconSet(IconSets.SHINY)
 		.withFlag(MaterialFlag.NO_BLOCK_COMPACTING)
 		.withExistingItems(GLOWSTONE_ITEMS)
-		.withExistingBlock(Block.glowstone)
+		.withExistingBlock(Blocks.GLOWSTONE)
 		.build();
 	public static final Material MAGNETITE = new MaterialBuilder(79, "magnetite")
 		.dust().ore()
@@ -625,18 +627,18 @@ public class Materials {
 		.build();
 
 	static {
-		IRON_ITEMS.put(MaterialItemType.INGOT, Item.ingotIron.getDefaultStack());
-		DIAMOND_ITEMS.put(MaterialItemType.GEM, Item.diamond.getDefaultStack());
-		COAL_ITEMS.put(MaterialItemType.GEM, Item.coal.getDefaultStack());
-		GOLD_ITEMS.put(MaterialItemType.INGOT, Item.ingotGold.getDefaultStack());
-		LAPIS_ITEMS.put(MaterialItemType.GEM, new ItemStack(Item.dye, 1, DyeColor.DYE_BLUE.dyeMeta));
-		REDSTONE_ITEMS.put(MaterialItemType.DUST, Item.dustRedstone.getDefaultStack());
-		STEEL_ITEMS.put(MaterialItemType.INGOT, Item.ingotSteel.getDefaultStack());
-		QUARTZ_ITEMS.put(MaterialItemType.GEM, Item.quartz.getDefaultStack());
-		WOOD_ITEMS.put(MaterialItemType.STICK, Item.stick.getDefaultStack());
-		FLINT_ITEMS.put(MaterialItemType.GEM, Item.flint.getDefaultStack());
-		OLIVINE_ITEMS.put(MaterialItemType.GEM, Item.olivine.getDefaultStack());
-		GLOWSTONE_ITEMS.put(MaterialItemType.DUST, Item.dustGlowstone.getDefaultStack());
+		IRON_ITEMS.put(MaterialItemType.INGOT, Items.INGOT_IRON.getDefaultStack());
+		DIAMOND_ITEMS.put(MaterialItemType.GEM, Items.DIAMOND.getDefaultStack());
+		COAL_ITEMS.put(MaterialItemType.GEM, Items.COAL.getDefaultStack());
+		GOLD_ITEMS.put(MaterialItemType.INGOT, Items.INGOT_GOLD.getDefaultStack());
+		LAPIS_ITEMS.put(MaterialItemType.GEM, new ItemStack(Items.DYE, 1, DyeColor.BLUE.itemMeta));
+		REDSTONE_ITEMS.put(MaterialItemType.DUST, Items.DUST_REDSTONE.getDefaultStack());
+		STEEL_ITEMS.put(MaterialItemType.INGOT, Items.INGOT_STEEL.getDefaultStack());
+		QUARTZ_ITEMS.put(MaterialItemType.GEM, Items.QUARTZ.getDefaultStack());
+		WOOD_ITEMS.put(MaterialItemType.STICK, Items.STICK.getDefaultStack());
+		FLINT_ITEMS.put(MaterialItemType.GEM, Items.FLINT.getDefaultStack());
+		OLIVINE_ITEMS.put(MaterialItemType.GEM, Items.OLIVINE.getDefaultStack());
+		GLOWSTONE_ITEMS.put(MaterialItemType.DUST, Items.DUST_GLOWSTONE.getDefaultStack());
 		//HANDLERS_NEEDED = MathHelper.floor_float(Material.MATERIALS.size() / fMETA_LIMIT);
 	}
 

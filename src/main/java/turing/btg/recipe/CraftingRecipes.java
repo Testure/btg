@@ -20,7 +20,7 @@ public class CraftingRecipes {
 		initMaterials();
 		RecipeBuilder.Shapeless(BTG.MOD_ID)
 			.addInput(Blocks.rubberLog.getDefaultStack())
-			.create("rubberLogToPlanks", new ItemStack(Block.planksOakPainted, 4, DyeColor.DYE_YELLOW.blockMeta));
+			.create("rubberLogToPlanks", new ItemStack(net.minecraft.core.block.Blocks.PLANKS_OAK_PAINTED, 4, DyeColor.YELLOW.blockMeta));
 		RecipeBuilder.Shaped(BTG.MOD_ID, "FF", "FF")
 			.addInput('F', "common_gems:flint")
 			.create("flint_to_block", Material.getBlockForMaterial(Materials.FLINT.id));
@@ -129,11 +129,11 @@ public class CraftingRecipes {
 
 		if (!material.hasFlag("basic_tools_only")) {
 			new RecipeBuilderShaped(BTG.MOD_ID, "II ", "IIS", "II ")
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.addInput('I', "common_" + baseItemType.getGroupName() + ":" + material.name)
 				.create("hammer" + uppercaseName, Items.TOOLS.get(ToolType.HAMMER).get(material.id).getDefaultStack());
 			new RecipeBuilderShaped(BTG.MOD_ID, " P ", " P ", " S ")
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.addInput('P', "common_plates:" + material.name)
 				.create("file" + uppercaseName, Items.TOOLS.get(ToolType.FILE).get(material.id).getDefaultStack());
 			new RecipeBuilderShaped(BTG.MOD_ID, "IHI", "III", " I ")
@@ -143,12 +143,12 @@ public class CraftingRecipes {
 			new RecipeBuilderShaped(BTG.MOD_ID, "HF ", "PPS")
 				.addInput('H', "btg:craftingTools_hammer")
 				.addInput('F', "btg:craftingTools_file")
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.addInput('P', "common_plates:" + material.name)
 				.create("saw" + uppercaseName, Items.TOOLS.get(ToolType.SAW).get(material.id).getDefaultStack());
 			if (material.hasToolType(ToolType.SCREWDRIVER)) {
 				new RecipeBuilderShaped(BTG.MOD_ID, " HR", " RF", "S  ")
-					.addInput('S', Item.stick.getDefaultStack())
+					.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 					.addInput('R', "common_sticks:" + material.name)
 					.addInput('H', "btg:craftingTools_hammer")
 					.addInput('F', "btg:craftingTools_file")
@@ -184,32 +184,32 @@ public class CraftingRecipes {
 				.addInput('H', "btg:craftingTools_hammer")
 				.addInput('F', "btg:craftingTools_file")
 				.addInput('P', "common_plates:" + material.name)
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.create("sword" + uppercaseName, Items.TOOLS.get(ToolType.SWORD).get(material.id).getDefaultStack());
 			new RecipeBuilderShaped(BTG.MOD_ID, "HPF", " S ", " S ")
 				.addInput('H', "btg:craftingTools_hammer")
 				.addInput('F', "btg:craftingTools_file")
 				.addInput('P', "common_plates:" + material.name)
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.create("shovel" + uppercaseName, Items.TOOLS.get(ToolType.SHOVEL).get(material.id).getDefaultStack());
 			new RecipeBuilderShaped(BTG.MOD_ID, "PPH", " SF", " S ")
 				.addInput('H', "btg:craftingTools_hammer")
 				.addInput('F', "btg:craftingTools_file")
 				.addInput('P', "common_plates:" + material.name)
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.create("hoe" + uppercaseName, Items.TOOLS.get(ToolType.HOE).get(material.id).getDefaultStack());
 			new RecipeBuilderShaped(BTG.MOD_ID, "IP ", "HPF", " S ")
 				.addInput('H', "btg:craftingTools_hammer")
 				.addInput('F', "btg:craftingTools_file")
 				.addInput('P', "common_plates:" + material.name)
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.addInput('I', "common_" + baseItemType.getGroupName() + ":" + material.name)
 				.create("axe" + uppercaseName, Items.TOOLS.get(ToolType.AXE).get(material.id).getDefaultStack());
 			new RecipeBuilderShaped(BTG.MOD_ID, "IPP", "HSF", " S ")
 				.addInput('H', "btg:craftingTools_hammer")
 				.addInput('F', "btg:craftingTools_file")
 				.addInput('P', "common_plates:" + material.name)
-				.addInput('S', Item.stick.getDefaultStack())
+				.addInput('S', net.minecraft.core.item.Items.STICK.getDefaultStack())
 				.addInput('I', "common_" + baseItemType.getGroupName() + ":" + material.name)
 				.create("pickaxe" + uppercaseName, Items.TOOLS.get(ToolType.PICKAXE).get(material.id).getDefaultStack());
 		}

@@ -1,11 +1,10 @@
 package turing.btg.api;
 
-import com.mojang.nbt.CompoundTag;
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.entity.Mob;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
 import turing.btg.BTG;
-import turing.btg.block.Blocks;
 import turing.btg.recipe.RecipeMap;
 import turing.btg.recipe.entries.SimpleRecipeEntry;
 
@@ -97,9 +96,9 @@ public class SteamMachineBehavior<T extends SimpleRecipeEntry> extends RecipeMap
 		int x = getX() + outputSide.getOffsetX();
 		int y = getY() + outputSide.getOffsetY();
 		int z = getZ() + outputSide.getOffsetZ();
-		getWorld().playSoundEffect(1004, x, y, z, 0);
+		//getWorld().playSoundEffect(1004, x, y, z, 0);
 		if (getWorld().getBlock(getX(), getY(), getZ()) != null) {
-			getWorld().getEntitiesWithinAABB(EntityLiving.class, getWorld().getBlock(getX(), getY(), getZ()).getSelectedBoundingBoxFromPool(getWorld(), x, y, z))
+			getWorld().getEntitiesWithinAABB(Mob.class, getWorld().getBlock(getX(), getY(), getZ()).getSelectedBoundingBoxFromPool(getWorld(), x, y, z))
 				.forEach(entity -> entity.hurt(null, 6, BTG.HEAT));
 		}
 

@@ -37,8 +37,7 @@ public class Machine {
 
 	public void registerBlocks() {
 		this.block = new BlockBuilder(BTG.MOD_ID)
-			.setBlockModel(BlockModelMachine::new)
-			.setItemBlock(b -> new ItemBlockMachine((BlockMachine) b))
+			.setBlockItem(b -> new ItemBlockMachine((BlockMachine) b))
 			.build(new BlockMachine(name, Blocks.NextMachineID++, behaviorSupplier, properties, this));
 	}
 

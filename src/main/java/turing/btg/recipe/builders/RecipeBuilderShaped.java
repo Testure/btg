@@ -1,6 +1,7 @@
 package turing.btg.recipe.builders;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryCrafting;
@@ -9,7 +10,6 @@ import net.minecraft.core.item.ItemStack;
 import turing.btg.recipe.entries.RecipeEntryCraftingShapedTools;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderBase;
-import turniplabs.halplibe.mixin.accessors.RecipeSymbolAccessor;
 
 import java.util.HashMap;
 
@@ -99,7 +99,7 @@ public class RecipeBuilderShaped extends RecipeBuilderBase {
 				} else {
 					if (symbol.getItemGroup() == null) {
 						RecipeSymbol s = new RecipeSymbol(symbol.getStack());
-						((RecipeSymbolAccessor) s).setSymbol(ch == null ? ' ' : ch);
+						((Recipe) s).setSymbol(ch == null ? ' ' : ch);
 						recipe[x + y * width] = s;
 					} else {
 						recipe[x + y * width] = new RecipeSymbol(ch == null ? ' ' : ch, symbol.getStack(), symbol.getItemGroup());
@@ -108,7 +108,7 @@ public class RecipeBuilderShaped extends RecipeBuilderBase {
 			}
 		}
 
-		((RecipeGroup<RecipeEntryCrafting<?, ?>>) RecipeBuilder.getRecipeGroup(modID, "workbench", new RecipeSymbol(Block.workbench.getDefaultStack()))
+		((RecipeGroup<RecipeEntryCrafting<?, ?>>) RecipeBuilder.getRecipeGroup(modID, "workbench", new RecipeSymbol(Blocks.WORKBENCH.getDefaultStack()))
 			).register(recipeID, new RecipeEntryCraftingShapedTools(width, height, recipe, outputStack, consumeContainer));
 	}
 }

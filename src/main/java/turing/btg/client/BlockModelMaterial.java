@@ -3,8 +3,8 @@ package turing.btg.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.block.model.BlockModel;
 import net.minecraft.client.render.block.model.BlockModelStandard;
-import net.minecraft.client.render.stitcher.IconCoordinate;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
@@ -63,7 +63,7 @@ public class BlockModelMaterial<T extends BlockMaterial> extends BlockModelStand
 		IconCoordinate index = getOverlayIndex(x, y, z);
 		if (index == null) return true;
 		renderBlocks.overrideBlockTexture = index;
-		boolean rendered = renderBlocks.renderStandardBlock(tessellator, ((BlockModel<Block>) ((BlockModel<?>) this)), this.block, x, y, z, 1.0F, 1.0F, 1.0F);
+		boolean rendered = renderBlocks.renderStandardBlock(tessellator, ((BlockModel<Block<?>>) ((BlockModel<?>) this)), this.block, x, y, z, 1.0F, 1.0F, 1.0F);
 		renderBlocks.overrideBlockTexture = null;
 		return rendered;
 	}

@@ -21,7 +21,7 @@ public interface IOreStoneType {
 		return false;
 	}
 
-	default Tag<Block> getNeededTool() {
+	default Tag<Block<?>> getNeededTool() {
 		return BlockTags.MINEABLE_BY_PICKAXE;
 	}
 

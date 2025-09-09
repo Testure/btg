@@ -1,7 +1,7 @@
 package turing.btg.modularui.impl;
 
-import net.minecraft.core.block.BlockFluid;
 import sunsetsatellite.catalyst.fluids.api.IFluidInventory;
+import sunsetsatellite.catalyst.fluids.util.Fluid;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
 import sunsetsatellite.catalyst.fluids.util.SlotFluid;
 import turing.btg.modularui.widgets.WidgetFluidSlot;
@@ -15,7 +15,7 @@ public class SlotFluidWidget extends SlotFluid {
 	}
 
 	@Override
-	public boolean isFluidValid(BlockFluid stack) {
+	public boolean isFluidValid(Fluid stack) {
 		return widget.canInsertIntoSlot(new FluidStack(stack));
 	}
 }

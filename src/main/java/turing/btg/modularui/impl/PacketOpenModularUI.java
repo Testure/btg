@@ -1,6 +1,6 @@
 package turing.btg.modularui.impl;
 
-import net.minecraft.core.net.handler.NetHandler;
+import net.minecraft.core.net.handler.PacketHandler;
 import net.minecraft.core.net.packet.Packet;
 import turing.btg.interfaces.INetClientHandler;
 
@@ -26,7 +26,7 @@ public class PacketOpenModularUI extends Packet {
 	}
 
 	@Override
-	public void readPacketData(DataInputStream dataInputStream) throws IOException {
+	public void read(DataInputStream dataInputStream) throws IOException {
 		windowId = dataInputStream.readByte();
 		windowTitle = dataInputStream.readUTF();
 		blockX = dataInputStream.readInt();
@@ -35,7 +35,7 @@ public class PacketOpenModularUI extends Packet {
 	}
 
 	@Override
-	public void writePacketData(DataOutputStream dataOutputStream) throws IOException {
+	public void write(DataOutputStream dataOutputStream) throws IOException {
 		dataOutputStream.writeByte(windowId);
 		dataOutputStream.writeUTF(windowTitle);
 		dataOutputStream.writeInt(blockX);
@@ -44,12 +44,12 @@ public class PacketOpenModularUI extends Packet {
 	}
 
 	@Override
-	public void processPacket(NetHandler netHandler) {
+	public void handlePacket(PacketHandler netHandler) {
 		((INetClientHandler) netHandler).handleOpenModularUI(this);
 	}
 
 	@Override
-	public int getPacketSize() {
+	public int getEstimatedSize() {
 		return 8 + windowTitle.length() + 5;
 	}
 }

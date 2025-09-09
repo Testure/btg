@@ -1,10 +1,11 @@
 package turing.btg.api;
 
-import net.minecraft.client.render.stitcher.IconCoordinate;
-import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -107,14 +108,14 @@ public interface IItemToolMaterial extends ICustomDescription, IColored, ICrafti
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	default boolean hitEntity(ItemStack stack, EntityLiving entityLiving, EntityLiving player) {
+	default boolean hitEntity(ItemStack stack, Mob entityLiving, Mob player) {
 		stack.damageItem(isSword() ? 1 : 2, player);
 		return true;
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	default boolean onBlockDestroyed(World world, ItemStack stack, int removedBlockId, int x, int y, int z, EntityLiving entityLiving) {
-		Block block = Block.getBlock(removedBlockId);
+	default boolean onBlockDestroyed(World world, ItemStack stack, int removedBlockId, int x, int y, int z, Mob entityLiving) {
+		Block block = Blocks.getBlock(removedBlockId);
 		if (block != null && (block.getHardness() > 0.0F || isSilkTouch())) {
 			stack.damageItem(isSword() ? 2 : 1, entityLiving);
 		}

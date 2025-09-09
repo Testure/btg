@@ -1,9 +1,6 @@
 package turing.btg.recipe;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.data.registry.recipe.RecipeGroup;
-import net.minecraft.core.data.registry.recipe.RecipeSymbol;
-import net.minecraft.core.item.Item;
 import turing.btg.api.IChanceFunction;
 import turing.btg.gui.GuiTextures;
 import turing.btg.modularui.GuiTexture;

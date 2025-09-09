@@ -1,14 +1,11 @@
 package turing.btg.api;
 
-import com.mojang.nbt.CompoundTag;
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.item.ItemStack;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
-import turing.btg.gui.GuiTextures;
 import turing.btg.modularui.ModularUI;
 import turing.btg.modularui.api.ITheme;
-import turing.btg.modularui.api.ProgressMoveType;
 import turing.btg.modularui.widgets.WidgetProgress;
-import turing.btg.modularui.widgets.WidgetTexture;
 import turing.btg.recipe.RecipeMap;
 import turing.btg.recipe.RecipeMapSymbol;
 import turing.btg.recipe.SimpleRecipeOutput;

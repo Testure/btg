@@ -1,6 +1,7 @@
 package turing.btg.material;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.sound.BlockSound;
@@ -13,21 +14,21 @@ import java.util.List;
 public class OreStoneType implements IOreStoneType {
 	public static final List<OreStoneType> TYPES = new ArrayList<>();
 
-	public static final OreStoneType STONE = new OreStoneType("Stone", Block.stone, Materials.STONE);
-	public static final OreStoneType BASALT = new OreStoneType("Basalt", Block.basalt, Materials.BASALT);
-	public static final OreStoneType LIMESTONE = new OreStoneType("Limestone", Block.limestone, Materials.LIMESTONE);
-	public static final OreStoneType GRANITE = new OreStoneType("Granite", Block.granite, Materials.GRANITE);
-	public static final OreStoneType GRAVEL = new OreStoneType("Gravel", Block.gravel, BlockSounds.GRAVEL, true, Materials.FLINT);
-	public static final OreStoneType SAND = new OreStoneType("Sand", Block.sand, BlockSounds.SAND, true, Materials.SILICON_DIOXIDE);
-	public static final OreStoneType NETHERRACK = new OreStoneType("Netherrack", Block.netherrack, Materials.NETHERRACK);
+	public static final OreStoneType STONE = new OreStoneType("Stone", Blocks.STONE, Materials.STONE);
+	public static final OreStoneType BASALT = new OreStoneType("Basalt", Blocks.BASALT, Materials.BASALT);
+	public static final OreStoneType LIMESTONE = new OreStoneType("Limestone", Blocks.LIMESTONE, Materials.LIMESTONE);
+	public static final OreStoneType GRANITE = new OreStoneType("Granite", Blocks.GRANITE, Materials.GRANITE);
+	public static final OreStoneType GRAVEL = new OreStoneType("Gravel", Blocks.GRAVEL, BlockSounds.GRAVEL, true, Materials.FLINT);
+	public static final OreStoneType SAND = new OreStoneType("Sand", Blocks.SAND, BlockSounds.SAND, true, Materials.SILICON_DIOXIDE);
+	public static final OreStoneType NETHERRACK = new OreStoneType("Netherrack", Blocks.NETHERRACK, Materials.NETHERRACK);
 
 	private final String name;
-	private final Block base;
+	private final Block<?> base;
 	private final boolean gravity;
 	private final BlockSound sound;
 	private final Material material;
 
-	public OreStoneType(String name, Block base, BlockSound sound, boolean gravity, Material material) {
+	public OreStoneType(String name, Block<?> base, BlockSound sound, boolean gravity, Material material) {
 		this.name = name;
 		this.base = base;
 		this.sound = sound;
@@ -36,20 +37,20 @@ public class OreStoneType implements IOreStoneType {
 		TYPES.add(this);
 	}
 
-	public OreStoneType(String name, Block base, BlockSound sound) {
+	public OreStoneType(String name, Block<?> base, BlockSound sound) {
 		this(name, base, sound, false, null);
 	}
 
-	public OreStoneType(String name, Block base, Material material) {
+	public OreStoneType(String name, Block<?> base, Material material) {
 		this(name, base, BlockSounds.STONE, false, material);
 	}
 
-	public OreStoneType(String name, Block base) {
+	public OreStoneType(String name, Block<?> base) {
 		this(name, base, BlockSounds.STONE);
 	}
 
 	@Override
-	public Block getBaseBlock() {
+	public Block<?> getBaseBlock() {
 		return base;
 	}
 
@@ -74,7 +75,7 @@ public class OreStoneType implements IOreStoneType {
 	}
 
 	@Override
-	public Tag<Block> getNeededTool() {
+	public Tag<Block<?>> getNeededTool() {
 		return hasGravity() ? BlockTags.MINEABLE_BY_SHOVEL : BlockTags.MINEABLE_BY_PICKAXE;
 	}
 }

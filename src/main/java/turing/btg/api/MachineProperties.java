@@ -1,14 +1,13 @@
 package turing.btg.api;
 
-import net.minecraft.client.render.stitcher.IconCoordinate;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.Nullable;
-import turing.btg.BTG;
 import turing.btg.BTGConfig;
 import turing.btg.BTGTextures;
 import turing.btg.util.RenderUtil;
@@ -59,7 +58,7 @@ public class MachineProperties {
 		return 6.0F;
 	}
 
-	public Tag<Block> getEffectiveTag() {
+	public Tag<Block<?>> getEffectiveTag() {
 		return BlockTags.MINEABLE_BY_PICKAXE;
 	}
 

@@ -2,8 +2,6 @@ package turing.btg.material;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.material.ToolMaterial;
-import net.minecraft.core.util.helper.MathHelper;
 import turing.btg.api.IMaterialProperty;
 
 import java.util.*;

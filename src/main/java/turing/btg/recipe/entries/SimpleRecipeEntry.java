@@ -66,7 +66,7 @@ public class SimpleRecipeEntry extends RecipeEntryBase<RecipeMapSymbol[], Simple
 				if (output.getItem() != null) {
 					displayName = output.getItem().getDisplayName();
 				} else if (output.getFluid() != null) {
-					displayName = output.getFluid().getFluidName();
+					displayName = output.getFluid().fluid.getName();
 				}
 				if (displayName != null) {
 					if (query.strict && displayName.equalsIgnoreCase(query.query.getRight())) {
@@ -112,9 +112,9 @@ public class SimpleRecipeEntry extends RecipeEntryBase<RecipeMapSymbol[], Simple
 			if (fluids != null) {
 				if (query.query.getLeft() == SearchQuery.QueryType.NAME) {
 					for (FluidStack stack : fluids) {
-						if (query.strict && stack.getFluidName().equalsIgnoreCase(query.query.getRight())) {
+						if (query.strict && stack.fluid.getName().equalsIgnoreCase(query.query.getRight())) {
 							return true;
-						} else if (!query.strict && stack.getFluidName().toLowerCase().contains(query.query.getRight().toLowerCase())) {
+						} else if (!query.strict && stack.fluid.getName().toLowerCase().contains(query.query.getRight().toLowerCase())) {
 							return true;
 						}
 					}

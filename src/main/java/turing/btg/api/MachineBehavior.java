@@ -1,17 +1,17 @@
 package turing.btg.api;
 
-import com.mojang.nbt.CompoundTag;
-import net.minecraft.client.render.stitcher.IconCoordinate;
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.entity.EntityItem;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.Pair;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import sunsetsatellite.catalyst.Catalyst;
-import sunsetsatellite.catalyst.core.util.BlockSection;
+import sunsetsatellite.catalyst.core.util.section.BlockSection;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
 import turing.btg.BTGConfig;
 import turing.btg.BTGTextures;
@@ -323,15 +323,15 @@ public class MachineBehavior {
 
 	}
 
-	public void onLeftClick(EntityPlayer player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
+	public void onLeftClick(Player player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
 
 	}
 
-	public boolean onRightClick(EntityPlayer player, Side side, double xHit, double yHit) {
+	public boolean onRightClick(Player player, Side side, double xHit, double yHit) {
 		return false;
 	}
 
-	public boolean onWrenchClick(EntityPlayer player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
+	public boolean onWrenchClick(Player player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
 		Side playerFacing = Catalyst.calculatePlayerFacing(player.yRot);
 		Side effectiveSide = pair.getRight().toDirection(pair.getLeft(), playerFacing).getSide();
 		if (!player.isSneaking()) {
@@ -348,11 +348,11 @@ public class MachineBehavior {
 		return false;
 	}
 
-	public boolean onScrewdriverClick(EntityPlayer player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
+	public boolean onScrewdriverClick(Player player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
 		return false;
 	}
 
-	public boolean onCrowbarClick(EntityPlayer player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
+	public boolean onCrowbarClick(Player player, Side side, double xHit, double yHit, Pair<sunsetsatellite.catalyst.core.util.Direction, BlockSection> pair) {
 		return false;
 	}
 
@@ -458,7 +458,7 @@ public class MachineBehavior {
 				item.xd *= 0.5D;
 				item.yd *= 0.5D;
 				item.zd *= 0.5D;
-				item.delayBeforeCanPickup = 0;
+				item.pickupDelay = 0;
 			}
 		}
 	}

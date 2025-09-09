@@ -1,14 +1,14 @@
 package turing.btg.entity.tile;
 
-import com.mojang.nbt.CompoundTag;
-import net.minecraft.client.entity.player.EntityPlayerSP;
+import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockFluid;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
-import net.minecraft.core.net.packet.Packet140TileEntityData;
+import sunsetsatellite.catalyst.fluids.util.Fluid;
 import sunsetsatellite.catalyst.fluids.util.FluidStack;
 import turing.btg.api.MachineBehavior;
 import turing.btg.block.BlockMachine;
@@ -108,8 +108,8 @@ public class TileEntityMachine extends TileEntity implements IModularUITile {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityPlayer) {
-		return worldObj.getBlockTileEntity(x, y, z) == this && entityPlayer.distanceToSqr((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D) <= 64.0;
+	public boolean canInteractWith(Player entityPlayer) {
+		return worldObj.getTileEntity(x, y, z) == this && entityPlayer.distanceToSqr((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D) <= 64.0;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class TileEntityMachine extends TileEntity implements IModularUITile {
 		super.readFromNBT(tag);
 		int id = tag.getInteger("blockId");
 		if (id != 0) {
-			Block block = Block.getBlock(id);
+			Block<?> block = Blocks.getBlock(id);
 			if (block instanceof BlockMachine) {
 				behavior = ((BlockMachine) block).behaviorSupplier.apply(((BlockMachine) block).getProperties(), (BlockMachine) block);
 				behavior.holder = this;
@@ -146,12 +146,12 @@ public class TileEntityMachine extends TileEntity implements IModularUITile {
 		ModularUI.UI_CACHE.remove((long)x + y + z);
 	}
 
-	public ModularUI getUI(EntityPlayer player) {
+	public ModularUI getUI(Player player) {
 		long pos = (long)x + y + z;
 		ModularUI ui = ModularUI.UI_CACHE.get(pos);
 		if (ui == null) {
 			ui = createUI();
-			if (player instanceof EntityPlayerSP) {
+			if (player instanceof PlayerLocal) {
 				ModularUI.UI_CACHE.put(pos, ui);
 			}
 		}
@@ -160,7 +160,7 @@ public class TileEntityMachine extends TileEntity implements IModularUITile {
 
 	@Override
 	public ModularUI createUI() {
-		Block block = worldObj.getBlock(x, y, z);
+		Block<?> block = worldObj.getBlock(x, y, z);
 		return behavior.createUI(((BlockMachine) block).machine.theme);
 	}
 
@@ -180,15 +180,15 @@ public class TileEntityMachine extends TileEntity implements IModularUITile {
 	}
 
 	@Override
-	public ArrayList<BlockFluid> getAllowedFluidsForSlot(int i) {
+	public ArrayList<Fluid> getAllowedFluidsForSlot(int i) {
 		if (i >= 0 && getSizeInventory() > 0) {
 			if (i > behavior.fluidInputs) {
 				return new ArrayList<>();
 			} else {
 				FluidStack stack = getFluidInSlot(i);
 				if (stack != null) {
-					ArrayList<BlockFluid> list = new ArrayList<>();
-					list.add(stack.liquid);
+					ArrayList<Fluid> list = new ArrayList<>();
+					list.add(stack.fluid);
 					return list;
 				}
 			}

@@ -2,17 +2,14 @@ package turing.btg.material;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.RenderEngine;
-import net.minecraft.client.render.stitcher.IconCoordinate;
-import net.minecraft.client.render.stitcher.TextureRegistry;
-import net.minecraft.client.util.helper.Textures;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import turing.btg.BTG;
 import turing.btg.api.IToolType;
 import turing.btg.api.ToolType;
 import turing.btg.item.Items;
 import turniplabs.halplibe.util.DirectoryManager;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,12 +100,12 @@ public class MaterialIconSet {
 
 	protected boolean itemTextureExists(Minecraft mc, String name) {
 		String path = "icon_sets/" + this.name + "/" + name + ".png";
-		return mc.renderEngine.texturePacks.getResourceAsStream(DirectoryManager.getItemTextureDirectory(BTG.MOD_ID) + path) != null;
+		return mc.textureManager.texturePacks.getResourceAsStream(DirectoryManager.getItemTextureDirectory(BTG.MOD_ID) + path) != null;
 	}
 
 	protected boolean blockTextureExists(Minecraft mc, String name) {
 		String path = "icon_sets/" + this.name + "/" + name + ".png";
-		return mc.renderEngine.texturePacks.getResourceAsStream(DirectoryManager.getBlockTextureDirectory(BTG.MOD_ID) + path) != null;
+		return mc.textureManager.texturePacks.getResourceAsStream(DirectoryManager.getBlockTextureDirectory(BTG.MOD_ID) + path) != null;
 	}
 
 	public static void init(Minecraft mc) {

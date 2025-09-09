@@ -1,6 +1,6 @@
 package turing.btg.client;
 
-import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.item.Item;
 import turing.btg.BTG;
 

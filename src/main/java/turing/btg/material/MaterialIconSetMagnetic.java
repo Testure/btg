@@ -1,8 +1,8 @@
 package turing.btg.material;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.stitcher.IconCoordinate;
-import net.minecraft.client.render.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import turing.btg.BTG;
 
 public class MaterialIconSetMagnetic extends MaterialIconSet {

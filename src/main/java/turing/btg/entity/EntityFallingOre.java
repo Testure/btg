@@ -1,7 +1,7 @@
 package turing.btg.entity;
 
-import com.mojang.nbt.CompoundTag;
-import net.minecraft.core.block.BlockSand;
+import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.block.BlockLogicSand;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
@@ -39,11 +39,6 @@ public class EntityFallingOre extends Entity {
 	}
 
 	@Override
-	protected void init() {
-
-	}
-
-	@Override
 	protected boolean makeStepSound() {
 		return false;
 	}
@@ -68,9 +63,9 @@ public class EntityFallingOre extends Entity {
 		this.xd *= 0.98D;
 		this.yd *= 0.98D;
 		this.zd *= 0.98D;
-		int fx = MathHelper.floor_double(this.x);
-		int fy = MathHelper.floor_double(this.y);
-		int fz = MathHelper.floor_double(this.z);
+		int fx = MathHelper.floor(this.x);
+		int fy = MathHelper.floor(this.y);
+		int fz = MathHelper.floor(this.z);
 		if (this.world.getBlockId(fx, fy, fz) == this.blockId && this.world.getBlockMetadata(fx, fy, fz) == this.blockMeta) {
 			this.world.setBlockWithNotify(fx, fy, fz, 0);
 			this.hasRemovedBlock = true;
@@ -80,12 +75,12 @@ public class EntityFallingOre extends Entity {
 			this.zd *= 0.7D;
 			this.yd *= -0.5D;
 			this.remove();
-			if (!(this.world.canBlockBePlacedAt(this.blockId, fx, fy, fz, true, Side.TOP) && !BlockSand.canFallBelow(this.world, fx, fy - 1, fz) && this.world.setBlockAndMetadataWithNotify(fx, fy, fz, this.blockId, this.blockMeta) || this.world.isClientSide || !this.hasRemovedBlock)) {
-				this.spawnAtLocation(new ItemStack(this.blockId, 1, this.blockMeta), 0F);
+			if (!(this.world.canBlockBePlacedAt(this.blockId, fx, fy, fz, true, Side.TOP) && !BlockLogicSand.canFallBelow(this.world, fx, fy - 1, fz) && this.world.setBlockAndMetadataWithNotify(fx, fy, fz, this.blockId, this.blockMeta) || this.world.isClientSide || !this.hasRemovedBlock)) {
+				this.dropItem(new ItemStack(this.blockId, 1, this.blockMeta), 0F);
 			}
 		} else if (this.fallTime > 100 && !this.world.isClientSide) {
 			if (this.hasRemovedBlock) {
-				this.spawnAtLocation(new ItemStack(this.blockId, 1, this.blockMeta), 0F);
+				this.dropItem(new ItemStack(this.blockId, 1, this.blockMeta), 0F);
 			}
 			this.remove();
 		}
@@ -94,6 +89,11 @@ public class EntityFallingOre extends Entity {
 	@Override
 	public float getShadowHeightOffs() {
 		return 0F;
+	}
+
+	@Override
+	protected void defineSynchedData() {
+
 	}
 
 	@Override
